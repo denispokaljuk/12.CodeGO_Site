@@ -1,0 +1,3 @@
+User-agent: *
+Host: api-maps.yandex.ru
+Disallow: /
