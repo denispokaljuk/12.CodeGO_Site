@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420" role="img" aria-label="Навесы">
+  <defs>
+    <linearGradient id="sky7" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5fb"/><stop offset="1" stop-color="#cfe0ee"/>
+    </linearGradient>
+    <linearGradient id="roof7" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9fb0bc"/><stop offset="1" stop-color="#6f8390"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#sky7)"/>
+  <rect y="358" width="640" height="62" fill="#cfc6b6"/>
+  <rect y="354" width="640" height="6" fill="#b7ad9c"/>
+
+  <!-- arched canopy roof -->
+  <path d="M70 150 Q320 90 570 150 L570 178 Q320 120 70 178 Z" fill="url(#roof7)" stroke="#46545f" stroke-width="3"/>
+  <!-- roof ribs -->
+  <g stroke="#56656f" stroke-width="2" opacity="0.6">
+    <path d="M150 168 Q320 116 150 116" fill="none"/>
+  </g>
+  <line x1="70" y1="178" x2="70" y2="150" stroke="#46545f" stroke-width="4"/>
+  <line x1="570" y1="178" x2="570" y2="150" stroke="#46545f" stroke-width="4"/>
+
+  <!-- support columns -->
+  <g fill="#5a6b78">
+    <rect x="96" y="170" width="16" height="190"/>
+    <rect x="312" y="120" width="16" height="240"/>
+    <rect x="528" y="170" width="16" height="190"/>
+  </g>
+  <!-- brace struts -->
+  <g stroke="#f26522" stroke-width="6" stroke-linecap="round">
+    <line x1="104" y1="220" x2="150" y2="175"/>
+    <line x1="520" y1="220" x2="474" y2="175"/>
+    <line x1="320" y1="170" x2="270" y2="140"/>
+    <line x1="320" y1="170" x2="370" y2="140"/>
+  </g>
+  <!-- base plates -->
+  <g fill="#46545f">
+    <rect x="88" y="354" width="32" height="6"/>
+    <rect x="304" y="354" width="32" height="6"/>
+    <rect x="520" y="354" width="32" height="6"/>
+  </g>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420" role="img" aria-label="Индивидуальные изделия">
+  <defs>
+    <linearGradient id="sky6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5fb"/><stop offset="1" stop-color="#dfe7ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#sky6)"/>
+
+  <!-- blueprint / drawing sheet -->
+  <rect x="60" y="70" width="360" height="280" rx="6" fill="#ffffff" stroke="#cdd6dd" stroke-width="3"/>
+  <g stroke="#dce4ea" stroke-width="1">
+    <line x1="60" y1="110" x2="420" y2="110"/><line x1="60" y1="150" x2="420" y2="150"/>
+    <line x1="60" y1="190" x2="420" y2="190"/><line x1="60" y1="230" x2="420" y2="230"/>
+    <line x1="60" y1="270" x2="420" y2="270"/><line x1="60" y1="310" x2="420" y2="310"/>
+    <line x1="110" y1="70" x2="110" y2="350"/><line x1="160" y1="70" x2="160" y2="350"/>
+    <line x1="210" y1="70" x2="210" y2="350"/><line x1="260" y1="70" x2="260" y2="350"/>
+    <line x1="310" y1="70" x2="310" y2="350"/><line x1="360" y1="70" x2="360" y2="350"/>
+  </g>
+
+  <!-- custom welded part drawing -->
+  <g stroke="#46545f" stroke-width="4" fill="none">
+    <circle cx="180" cy="200" r="55"/>
+    <circle cx="180" cy="200" r="22"/>
+    <path d="M180 145 L210 110 L260 130 L255 185"/>
+    <path d="M235 200 L320 200 L320 250 L235 250"/>
+  </g>
+  <!-- dimension lines -->
+  <g stroke="#f26522" stroke-width="2">
+    <line x1="120" y1="300" x2="320" y2="300"/>
+    <line x1="120" y1="294" x2="120" y2="306"/>
+    <line x1="320" y1="294" x2="320" y2="306"/>
+  </g>
+
+  <!-- 3D metal part (custom product) -->
+  <g>
+    <polygon points="440,260 540,230 600,260 500,290" fill="#7d909e"/>
+    <polygon points="440,260 500,290 500,350 440,320" fill="#5a6b78"/>
+    <polygon points="500,290 600,260 600,320 500,350" fill="#46545f"/>
+    <polygon points="498,236 528,226 548,238 518,248" fill="#f26522"/>
+  </g>
+
+  <!-- tools: ruler & pencil -->
+  <g>
+    <rect x="455" y="120" width="150" height="22" rx="3" fill="#f4b03a" transform="rotate(-18 530 131)"/>
+    <g transform="rotate(-18 530 131)">
+      <line x1="465" y1="131" x2="465" y2="142" stroke="#8a6312" stroke-width="2"/>
+      <line x1="485" y1="131" x2="485" y2="142" stroke="#8a6312" stroke-width="2"/>
+      <line x1="505" y1="131" x2="505" y2="142" stroke="#8a6312" stroke-width="2"/>
+      <line x1="525" y1="131" x2="525" y2="142" stroke="#8a6312" stroke-width="2"/>
+      <line x1="545" y1="131" x2="545" y2="142" stroke="#8a6312" stroke-width="2"/>
+      <line x1="565" y1="131" x2="565" y2="142" stroke="#8a6312" stroke-width="2"/>
+      <line x1="585" y1="131" x2="585" y2="142" stroke="#8a6312" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

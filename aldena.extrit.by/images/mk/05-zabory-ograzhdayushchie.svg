@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420" role="img" aria-label="Заборы и ограждающие конструкции">
+  <defs>
+    <linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5fb"/><stop offset="1" stop-color="#cfe0ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#sky5)"/>
+  <rect y="360" width="640" height="60" fill="#cfc6b6"/>
+  <rect y="356" width="640" height="6" fill="#b7ad9c"/>
+
+  <!-- fence posts -->
+  <g fill="#46545f">
+    <rect x="70" y="120" width="16" height="240"/>
+    <rect x="250" y="120" width="16" height="240"/>
+    <rect x="430" y="120" width="16" height="240"/>
+    <rect x="554" y="120" width="16" height="240"/>
+  </g>
+  <!-- post caps -->
+  <g fill="#f26522">
+    <rect x="66" y="112" width="24" height="10" rx="2"/>
+    <rect x="246" y="112" width="24" height="10" rx="2"/>
+    <rect x="426" y="112" width="24" height="10" rx="2"/>
+    <rect x="550" y="112" width="24" height="10" rx="2"/>
+  </g>
+
+  <!-- panel sections: vertical bars with horizontal frame -->
+  <g>
+    <!-- panel 1 -->
+    <rect x="86" y="150" width="164" height="8" fill="#5a6b78"/>
+    <rect x="86" y="320" width="164" height="8" fill="#5a6b78"/>
+    <!-- panel 2 -->
+    <rect x="266" y="150" width="164" height="8" fill="#5a6b78"/>
+    <rect x="266" y="320" width="164" height="8" fill="#5a6b78"/>
+    <!-- panel 3 -->
+    <rect x="446" y="150" width="108" height="8" fill="#5a6b78"/>
+    <rect x="446" y="320" width="108" height="8" fill="#5a6b78"/>
+  </g>
+  <g fill="#8b9aa6">
+    <!-- bars panel1 -->
+    <rect x="100" y="150" width="7" height="178"/><rect x="124" y="150" width="7" height="178"/>
+    <rect x="148" y="150" width="7" height="178"/><rect x="172" y="150" width="7" height="178"/>
+    <rect x="196" y="150" width="7" height="178"/><rect x="220" y="150" width="7" height="178"/>
+    <!-- bars panel2 -->
+    <rect x="280" y="150" width="7" height="178"/><rect x="304" y="150" width="7" height="178"/>
+    <rect x="328" y="150" width="7" height="178"/><rect x="352" y="150" width="7" height="178"/>
+    <rect x="376" y="150" width="7" height="178"/><rect x="400" y="150" width="7" height="178"/>
+    <!-- bars panel3 -->
+    <rect x="460" y="150" width="7" height="178"/><rect x="484" y="150" width="7" height="178"/>
+    <rect x="508" y="150" width="7" height="178"/><rect x="532" y="150" width="7" height="178"/>
+  </g>
+</svg>

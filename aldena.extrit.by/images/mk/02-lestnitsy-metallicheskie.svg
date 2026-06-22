@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420" role="img" aria-label="Лестницы металлические по серии">
+  <defs>
+    <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5fb"/><stop offset="1" stop-color="#cfe0ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#sky2)"/>
+  <rect y="362" width="640" height="58" fill="#cfc6b6"/>
+
+  <!-- stringers -->
+  <g stroke="#46545f" stroke-width="14" stroke-linecap="round">
+    <line x1="120" y1="360" x2="470" y2="90"/>
+  </g>
+  <g stroke="#5a6b78" stroke-width="10" stroke-linecap="round">
+    <line x1="170" y1="360" x2="520" y2="90"/>
+  </g>
+
+  <!-- steps (treads) -->
+  <g fill="#7d909e" stroke="#46545f" stroke-width="2">
+    <!-- generate 8 treads going up -->
+    <polygon points="120,360 175,360 215,330 160,330"/>
+    <polygon points="160,330 215,330 255,300 200,300"/>
+    <polygon points="200,300 255,300 295,270 240,270"/>
+    <polygon points="240,270 295,270 335,240 280,240"/>
+    <polygon points="280,240 335,240 375,210 320,210"/>
+    <polygon points="320,210 375,210 415,180 360,180"/>
+    <polygon points="360,180 415,180 455,150 400,150"/>
+    <polygon points="400,150 455,150 495,120 440,120"/>
+  </g>
+
+  <!-- handrail posts -->
+  <g stroke="#f26522" stroke-width="6" stroke-linecap="round">
+    <line x1="170" y1="345" x2="200" y2="290"/>
+    <line x1="290" y1="282" x2="320" y2="227"/>
+    <line x1="410" y1="219" x2="440" y2="164"/>
+    <line x1="520" y1="160" x2="520" y2="92"/>
+  </g>
+  <!-- handrail -->
+  <line x1="195" y1="300" x2="525" y2="100" stroke="#f26522" stroke-width="7" stroke-linecap="round"/>
+  <!-- balusters -->
+  <g stroke="#aab8c2" stroke-width="3">
+    <line x1="220" y1="318" x2="234" y2="290"/>
+    <line x1="260" y1="298" x2="274" y2="270"/>
+    <line x1="340" y1="258" x2="354" y2="230"/>
+    <line x1="380" y1="238" x2="394" y2="210"/>
+    <line x1="460" y1="198" x2="474" y2="170"/>
+    <line x1="490" y1="178" x2="504" y2="150"/>
+  </g>
+</svg>

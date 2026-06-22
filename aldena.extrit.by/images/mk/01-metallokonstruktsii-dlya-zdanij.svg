@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420" role="img" aria-label="Металлоконструкции для зданий">
+  <defs>
+    <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5fb"/><stop offset="1" stop-color="#cfe0ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#sky1)"/>
+  <rect y="360" width="640" height="60" fill="#cfc6b6"/>
+  <rect y="356" width="640" height="6" fill="#b7ad9c"/>
+
+  <!-- tower crane in background -->
+  <g stroke="#9aa7b2" stroke-width="3" fill="none" opacity="0.7">
+    <line x1="600" y1="360" x2="600" y2="70"/>
+    <line x1="592" y1="360" x2="592" y2="70"/>
+    <line x1="440" y1="78" x2="630" y2="78"/>
+    <line x1="596" y1="60" x2="540" y2="78"/>
+    <line x1="596" y1="60" x2="620" y2="78"/>
+    <line x1="470" y1="78" x2="470" y2="120"/>
+  </g>
+
+  <!-- gable steel frame -->
+  <g fill="#5a6b78">
+    <rect x="84" y="160" width="14" height="200"/>
+    <rect x="313" y="120" width="14" height="240"/>
+    <rect x="542" y="160" width="14" height="200"/>
+  </g>
+  <!-- bottom chord (eaves) -->
+  <rect x="84" y="156" width="472" height="11" fill="#46545f"/>
+  <!-- rafters to ridge -->
+  <g stroke="#46545f" stroke-width="11" stroke-linecap="round">
+    <line x1="90" y1="161" x2="320" y2="92"/>
+    <line x1="550" y1="161" x2="320" y2="92"/>
+  </g>
+  <!-- truss web members -->
+  <g stroke="#7d909e" stroke-width="5">
+    <line x1="170" y1="161" x2="170" y2="138"/>
+    <line x1="250" y1="161" x2="250" y2="114"/>
+    <line x1="400" y1="161" x2="400" y2="114"/>
+    <line x1="480" y1="161" x2="480" y2="138"/>
+    <line x1="90" y1="161" x2="170" y2="138"/>
+    <line x1="170" y1="161" x2="250" y2="114"/>
+    <line x1="250" y1="161" x2="320" y2="92"/>
+    <line x1="320" y1="92" x2="400" y2="114"/>
+    <line x1="400" y1="161" x2="480" y2="138"/>
+    <line x1="480" y1="161" x2="550" y2="161"/>
+  </g>
+  <!-- cross bracing in left bay -->
+  <g stroke="#f26522" stroke-width="5">
+    <line x1="91" y1="360" x2="320" y2="170"/>
+    <line x1="320" y1="360" x2="91" y2="170"/>
+  </g>
+  <!-- purlins -->
+  <g stroke="#8b9aa6" stroke-width="3">
+    <line x1="120" y1="146" x2="128" y2="158"/>
+    <line x1="200" y1="122" x2="208" y2="134"/>
+    <line x1="280" y1="100" x2="288" y2="112"/>
+    <line x1="360" y1="100" x2="352" y2="112"/>
+    <line x1="440" y1="122" x2="432" y2="134"/>
+    <line x1="520" y1="146" x2="512" y2="158"/>
+  </g>
+  <!-- base plates -->
+  <g fill="#46545f">
+    <rect x="76" y="356" width="30" height="6"/>
+    <rect x="305" y="356" width="30" height="6"/>
+    <rect x="534" y="356" width="30" height="6"/>
+  </g>
+</svg>
