@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
 
     <meta property="og:image" content="//aldena.extrit.by/images/logo.jpg">
@@ -244,46 +245,107 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
                     </div>
 
         <!-- Информация -->
+        <style>
+        .pa-action{
+            --pa-ink:#1d2428;
+            --pa-line:#323b40;
+            --pa-ember:#f26522;
+            --pa-ember-deep:#e05e1d;
+            --pa-mono:'IBM Plex Mono',monospace;
+            --pa-display:'Oswald',sans-serif;
+            background:var(--pa-ink);
+            color:#fff;
+            border-radius:15px;
+            overflow:hidden;
+        }
+        .pa-titleblock{padding:24px 26px 20px;border-bottom:1px solid var(--pa-line);}
+        .pa-stamp{
+            display:inline-flex;align-items:center;gap:8px;
+            font-family:var(--pa-mono);font-size:.66rem;letter-spacing:.14em;
+            color:var(--pa-ember);text-transform:uppercase;margin-bottom:14px;
+        }
+        .pa-stamp::before{content:"";width:22px;height:1px;background:var(--pa-ember);}
+        .pa-title{
+            font-family:var(--pa-display);font-weight:600;
+            font-size:clamp(2rem,4vw,3rem);line-height:.98;
+            letter-spacing:.005em;text-transform:uppercase;margin:0;color:#fff;
+        }
+        .pa-title .pa-num{color:var(--pa-ember);display:block;font-weight:700;}
+        .pa-lede{color:#c2c7cc;font-size:.95rem;line-height:1.55;margin:16px 0 0;max-width:44ch;}
+
+        .pa-chips{display:flex;flex-wrap:wrap;gap:7px;padding:18px 26px;border-bottom:1px solid var(--pa-line);}
+        .pa-chip{
+            font-family:var(--pa-mono);font-size:.7rem;letter-spacing:.03em;
+            border:1px solid var(--pa-line);color:#d7dadd;
+            padding:6px 9px;display:inline-flex;gap:7px;align-items:center;border-radius:6px;
+        }
+        .pa-chip b{color:#fff;font-weight:600;}
+        .pa-chip i{color:var(--pa-ember);font-style:normal;}
+
+        .pa-quote{padding:22px 26px;}
+        .pa-priceline{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;}
+        .pa-priceline .pa-p{font-family:var(--pa-display);font-weight:600;font-size:1.7rem;text-transform:uppercase;letter-spacing:.01em;color:#fff;}
+        .pa-priceline .pa-u{font-family:var(--pa-mono);font-size:.72rem;color:#9aa0a6;}
+        .pa-calc-note{display:flex;align-items:center;gap:8px;color:#a9aeb3;font-size:.82rem;margin-bottom:18px;}
+        .pa-calc-note .pa-dot{width:7px;height:7px;border-radius:50%;background:#2f7d52;box-shadow:0 0 0 3px rgba(47,125,82,.25);flex:0 0 auto;}
+        .pa-cta-row{display:flex;flex-direction:column;gap:10px;}
+        .pa-btn{
+            font-family:Inter,sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;border:none;
+            padding:15px 20px;border-radius:10px;
+            display:inline-flex;align-items:center;justify-content:center;gap:9px;
+            text-decoration:none;transition:background .15s,border-color .15s,transform .12s;width:100%;
+        }
+        .pa-btn:active{transform:translateY(1px);}
+        .pa-btn-ember{background:var(--pa-ember);color:#fff!important;}
+        .pa-btn-ember:hover{background:var(--pa-ember-deep);color:#fff!important;}
+        .pa-btn-call{background:transparent;border:1px solid var(--pa-line);color:#fff!important;}
+        .pa-btn-call:hover{border-color:var(--pa-ember);color:#fff!important;}
+        .pa-btn-call b{font-family:var(--pa-mono);font-weight:500;}
+
+        .pa-trust{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pa-line);border-top:1px solid var(--pa-line);}
+        .pa-trust>div{background:var(--pa-ink);padding:13px 22px;display:flex;align-items:center;gap:10px;font-size:.8rem;color:#c2c7cc;}
+        .pa-trust svg{flex:0 0 auto;color:var(--pa-ember);}
+
+        @media(max-width:760px){
+            .pa-trust{grid-template-columns:1fr;}
+        }
+        </style>
         <div class="pc-info">
-            <div class="pc-info-eyebrow pc-fade-in d1">Лестницы металлические по серии </div>
-            <h1 class="pc-info-title pc-fade-in d2">Лестница 1</h1>
-
-                            <div class="pc-info-lead pc-fade-in d2">
-                    <p>Каркасы и готовые лестничные марши для промышленных зданий. Идеальная геометрия благодаря современному оборудованию и лёгкий монтаж без подгонки на объекте.</p>                </div>
-            
-
-            <!-- CTA -->
-            <div class="pc-cta-card pc-fade-in d3">
-                <div class="pc-cta-label">Стоимость</div>
-                <div class="pc-cta-price">Расчёт по проекту</div>
-                <div class="pc-cta-note">Цена зависит от размеров, материала и комплектации. Подготовим коммерческое предложение за 1 рабочий день.</div>
-                <div class="pc-cta-buttons">
-                    <a href="#formPopup_154" class="btn pc-btn pc-btn-primary">
-                        Получить расчёт
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M13 6l6 6-6 6" />
-                        </svg>
-                    </a>
-                    <a href="tel:+375295920055" class="pc-btn pc-btn-ghost">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-                        </svg>
-                        Позвонить
-                    </a>
+            <div class="pa-action pc-fade-in d1">
+                <div class="pa-titleblock">
+                    <div class="pa-stamp">Типовая серия · ГОСТ 23120</div>
+                    <h1 class="pa-title">Лестница<span class="pa-num">Серия 1.460</span></h1>
+                    <p class="pa-lede">Маршевая стальная лестница для производственных и складских зданий. Сварная конструкция из горячекатаных профилей, ступени из решётчатого настила, ограждение по высоте этажа заказчика.</p>
                 </div>
-            </div>
 
-            <!-- Контакт -->
-            <div class="pc-contact-row pc-fade-in d4">
-                <div class="pc-contact-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z" />
-                        <circle cx="12" cy="9" r="3" />
-                    </svg>
+                <div class="pa-chips">
+                    <span class="pa-chip"><i>∠</i><b>45° / 60°</b> наклон</span>
+                    <span class="pa-chip"><i>↔</i><b>700 / 900</b> мм ширина</span>
+                    <span class="pa-chip"><i>⛯</i>сталь <b>С245 / С255</b></span>
+                    <span class="pa-chip"><i>✶</i>горячее <b>цинкование</b></span>
                 </div>
-                <div class="pc-contact-text">
-                    <strong>Производство в Бресте</strong>
-                    Доставка по Беларуси · Полный цикл: проектирование → монтаж                </div>
+
+                <div class="pa-quote">
+                    <div class="pa-priceline">
+                        <span class="pa-p">Цена по запросу</span>
+                        <span class="pa-u">за тонну / за марш</span>
+                    </div>
+                    <div class="pa-calc-note"><span class="pa-dot"></span>Расчёт по вашим чертежам КМ — за 1 рабочий день</div>
+                    <div class="pa-cta-row">
+                        <a href="#formPopup_154" class="pa-btn pa-btn-ember">Получить коммерческое предложение →</a>
+                        <a class="pa-btn pa-btn-call" href="tel:+375295920055">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+                            Позвонить <b>+375 (29) 592-00-55</b>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pa-trust">
+                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Собственное производство</div>
+                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l3 3v17H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Паспорт и сертификат</div>
+                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h11V6H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>Доставка по Беларуси</div>
+                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>Производство в Бресте</div>
+                </div>
             </div>
         </div>
     </div>
