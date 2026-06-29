@@ -346,16 +346,29 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
         </div>
     </div>
             <style>
-        .spec-table{width:100%;border-collapse:collapse;table-layout:auto;}
-        .spec-table td{padding:11px 16px;border:1px solid #e0e0e0;vertical-align:top;font-size:.93rem;line-height:1.45;}
-        .spec-table tr td:first-child{font-weight:600;color:#1d2428;background:#f5f5f5;width:46%;}
-        .spec-table tr td:last-child{color:#333;}
-        .opt-list{display:flex;flex-direction:column;}
-        .opt-item{padding:15px 0;border-bottom:1px solid #e6e6e6;}
-        .opt-item:last-child{border-bottom:none;}
-        .opt-t{position:relative;font-weight:600;font-size:1.04rem;color:#1d2428;margin-bottom:5px;padding-left:16px;}
-        .opt-t::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:#f26522;}
-        .opt-d{color:#444;font-size:.93rem;line-height:1.55;padding-left:16px;}
+        /* — Типографика контента во вкладках (сдержанно, читабельно) — */
+        .productTabs .tab-content h3{font-size:1.35rem;font-weight:600;color:#1d2428;margin:0 0 14px;letter-spacing:.005em;}
+        .productTabs .tab-content p{line-height:1.62;color:#1f242a;margin-bottom:13px;}
+        .productTabs .tab-content strong{color:#15191d;font-weight:600;}
+        .productTabs .tab-content ul{list-style:none;padding-left:0;margin:0 0 4px;}
+        .productTabs .tab-content ul li{position:relative;padding-left:20px;margin-bottom:9px;line-height:1.55;color:#1f242a;}
+        .productTabs .tab-content ul li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:#f26522;}
+
+        /* — Таблица характеристик: чистый datasheet (только нейтральные линии) — */
+        .spec-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:auto;border:1px solid #e3e7ea;border-radius:8px;overflow:hidden;}
+        .spec-table td{border:0;border-bottom:1px solid #eceff1;padding:12px 18px;vertical-align:top;font-size:.93rem;line-height:1.5;}
+        .spec-table tr:last-child td{border-bottom:none;}
+        .spec-table tr td:first-child{font-weight:600;color:#15191d;width:44%;border-right:1px solid #eceff1;}
+        .spec-table tr td:last-child{color:#1f242a;}
+        .spec-table tr:nth-child(odd) td{background:#fafbfc;}
+        .spec-table tr:hover td{background:#fff6f1;}
+
+        /* — Дополнительные опции: карточки с акцентной полосой — */
+        .opt-list{display:flex;flex-direction:column;gap:10px;}
+        .opt-item{padding:15px 18px;background:#f7f8f9;border-radius:8px;border-left:3px solid #e3e7ea;transition:border-color .15s,background .15s;}
+        .opt-item:hover{border-left-color:#f26522;background:#f2f4f5;}
+        .opt-t{font-weight:600;font-size:1.05rem;color:#1d2428;margin-bottom:5px;}
+        .opt-d{color:#1f242a;font-size:.93rem;line-height:1.55;}
         </style>
             <div class="articleBottom">
             <div class="productTabs">
