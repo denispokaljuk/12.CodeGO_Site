@@ -156,7 +156,7 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
                             </li>
                                                     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="active">
                                 <span itemprop="name">
-                                    Лестница 1                                </span>
+                                    Лестница серия 1.460                                </span>
                                 <meta itemprop="position" content="5">
                             </li>
                                     </ul>
@@ -205,9 +205,8 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
                         </div>
                     </div>
 
-                                            <span class="pc-gallery-badge">В производстве</span>
-                    
-                    
+
+
                     <div class="pc-gallery-counter" id="pcGalleryCounter">01 / 01</div>
 
                     <button class="pc-gallery-zoom" id="pcGalleryZoom" aria-label="Увеличить">
@@ -302,8 +301,14 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
         .pa-btn-call:hover{border-color:var(--pa-ember);color:#fff!important;}
         .pa-btn-call b{font-family:var(--pa-mono);font-weight:500;}
 
+        .pc-hero{align-items:stretch!important;}
+        .pc-info{display:flex;align-items:stretch;}
+        .pa-action{display:flex;flex-direction:column;flex:1 1 auto;}
+        .pa-quote{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;}
+
         .pa-trust{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pa-line);border-top:1px solid var(--pa-line);}
-        .pa-trust>div{background:var(--pa-ink);padding:13px 22px;display:flex;align-items:center;gap:10px;font-size:.8rem;color:#c2c7cc;}
+        .pa-trust>a{background:var(--pa-ink);padding:13px 22px;display:flex;align-items:center;gap:10px;font-size:.8rem;color:#c2c7cc;text-decoration:none;transition:background .15s,color .15s;}
+        .pa-trust>a:hover{background:#262d31;color:#fff;}
         .pa-trust svg{flex:0 0 auto;color:var(--pa-ember);}
 
         @media(max-width:760px){
@@ -313,16 +318,9 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
         <div class="pc-info">
             <div class="pa-action pc-fade-in d1">
                 <div class="pa-titleblock">
-                    <div class="pa-stamp">Типовая серия · ГОСТ 23120</div>
+                    <div class="pa-stamp">Типовая серия</div>
                     <h1 class="pa-title">Лестница<span class="pa-num">Серия 1.460</span></h1>
                     <p class="pa-lede">Маршевая стальная лестница для производственных и складских зданий. Сварная конструкция из горячекатаных профилей, ступени из решётчатого настила, ограждение по высоте этажа заказчика.</p>
-                </div>
-
-                <div class="pa-chips">
-                    <span class="pa-chip"><i>∠</i><b>45° / 60°</b> наклон</span>
-                    <span class="pa-chip"><i>↔</i><b>700 / 900</b> мм ширина</span>
-                    <span class="pa-chip"><i>⛯</i>сталь <b>С245 / С255</b></span>
-                    <span class="pa-chip"><i>✶</i>горячее <b>цинкование</b></span>
                 </div>
 
                 <div class="pa-quote">
@@ -341,14 +339,24 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
                 </div>
 
                 <div class="pa-trust">
-                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Собственное производство</div>
-                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l3 3v17H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Паспорт и сертификат</div>
-                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h11V6H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>Доставка по Беларуси</div>
-                    <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>Производство в Бресте</div>
+                    <a href="/kontakty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-7.58 8-13a8 8 0 10-16 0c0 5.42 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>Производство в Бресте</a>
+                    <a href="/o-kompanii/sertifikaty"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l3 3v17H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Паспорт и сертификат</a>
                 </div>
             </div>
         </div>
     </div>
+            <style>
+        .spec-table{width:100%;border-collapse:collapse;table-layout:auto;}
+        .spec-table td{padding:11px 16px;border:1px solid #e0e0e0;vertical-align:top;font-size:.93rem;line-height:1.45;}
+        .spec-table tr td:first-child{font-weight:600;color:#1d2428;background:#f5f5f5;width:46%;}
+        .spec-table tr td:last-child{color:#333;}
+        .opt-list{display:flex;flex-direction:column;}
+        .opt-item{padding:15px 0;border-bottom:1px solid #e6e6e6;}
+        .opt-item:last-child{border-bottom:none;}
+        .opt-t{position:relative;font-weight:600;font-size:1.04rem;color:#1d2428;margin-bottom:5px;padding-left:16px;}
+        .opt-t::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:#f26522;}
+        .opt-d{color:#444;font-size:.93rem;line-height:1.55;padding-left:16px;}
+        </style>
             <div class="articleBottom">
             <div class="productTabs">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -358,30 +366,61 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
                                                                     <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tab_1" role="tab" aria-controls="tab_1" aria-selected="false">Технические характеристики</a>
                         </li>
+                                                                    <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_2" role="tab" aria-controls="tab_2" aria-selected="false">Дополнительные опции</a>
+                        </li>
+                                                                    <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_3" role="tab" aria-controls="tab_3" aria-selected="false">Доставка и монтаж</a>
+                        </li>
                                                             </ul>
 
                 <div class="tab-content">
                                                                 <div class="tab-pane fade show active" id="tab_0" role="tabpanel">
-                            <p><strong>ООО «Альденагрупп»</strong>&nbsp;производит каркасы и готовые лестничные марши для промышленных зданий. Благодаря применению современного оборудования, мы гарантируем идеальную геометрию и легкий монтаж без подгонки на объекте.</p>
-<p><strong>Наши решения:</strong></p>
+                            <h3>Маршевая лестница серии 1.460</h3>
+<p>Лестница состоит из наклонных маршей и горизонтальных площадок и предназначена для постоянного сообщения между этажами производственных, складских и общественных зданий. Конструкция собирается из прокатных профилей: косоуры — из швеллеров, ступени — из просечно-вытяжного или рифлёного листа, ограждение — из труб и полос по ГОСТ 25772.</p>
+<p>Серия 1.460 — типовое решение с отработанной геометрией, поэтому изделие предсказуемо по весу, цене и срокам изготовления. Мы берём серию за основу, а под конкретный объект корректируем ширину марша, угол наклона, тип ступеней и узлы крепления к несущим конструкциям.</p>
+<p><strong>Где применяется:</strong></p>
 <ul>
-<li>Промышленные марши: усиленные конструкции на швеллерах и двутаврах для высоких нагрузок.</li>
-<li>Эвакуационные и пожарные лестницы: изготовление в строгом соответствии с нормами МЧС и ГОСТ.</li>
-<li>Ступени из ПВЛ и решетки: самоочищающиеся покрытия для уличных и технологических лестниц.</li>
-</ul>
-<p><strong>Преимущества наших лестниц:</strong></p>
-<ul>
-<li>Соблюдение допусков: строгий контроль геометрии для быстрого монтажа без подгонки.</li>
-<li>Надежные соединения: сварочные работы выполняемые аттестованными сварщиками с обязательным контролем качества сварных швов.</li>
-<li>Антикоррозийная обработка: нанесение защитных покрытий (грунт, эмаль, горячее цинкование, полимерная покраска).</li>
-<li>Полный цикл: от разработки чертежей КМ/КМД до оперативной доставки на объект.</li>
-<li>Безопасность: расчет угла наклона и высоты ступеней согласно эргономическим и строительным нормам.</li>
-<li>Комплектация: изготовим марши сразу с ограждениями в едином стиле.</li>
-</ul>
-<p><strong>Поставляем изделия в виде готовых отправочных марок, полностью подготовленных к монтажу элементов на объекте, с предоставлением паспортов качества и технической документации.&nbsp;Производим конструкции в строгом соответствии с ГОСТ и СТБ.</strong></p>                        </div>
+<li>лестничные клетки производственных и административно-бытовых корпусов;</li>
+<li>технологические и обслуживающие площадки у оборудования;</li>
+<li>эвакуационные и пожарные лестницы наружного и внутреннего размещения;</li>
+<li>эстакады, антресоли и переходные мостики.</li>
+</ul>                        </div>
                                                                     <div class="tab-pane fade" id="tab_1" role="tabpanel">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>                        </div>
-                                            
+                            <table class="spec-table">
+<tbody>
+<tr><td>Тип конструкции</td><td>Лестница маршевая</td></tr>
+<tr><td>Серия / стандарт</td><td>Серия 1.460 · ГОСТ 23120-78</td></tr>
+<tr><td>Угол наклона марша</td><td>45° / 60°</td></tr>
+<tr><td>Ширина марша</td><td>600 … 1200 мм</td></tr>
+<tr><td>Высота ступени (подступёнок)</td><td>200 мм</td></tr>
+<tr><td>Ширина проступи</td><td>200 … 300 мм</td></tr>
+<tr><td>Косоуры</td><td>Швеллер №16 … №24</td></tr>
+<tr><td>Ступени</td><td>Просечно-вытяжной / рифлёный лист</td></tr>
+<tr><td>Ограждение</td><td>h = 900 мм · ГОСТ 25772</td></tr>
+<tr><td>Марка стали</td><td>С245 (Ст3пс/сп)</td></tr>
+<tr><td>Расчётная нагрузка</td><td>до 400 кг/м²</td></tr>
+<tr><td>Покрытие</td><td>Грунт ГФ-021 / горячее цинкование</td></tr>
+<tr><td>Срок изготовления</td><td>7 … 14 рабочих дней</td></tr>
+</tbody>
+</table>                        </div>
+                                                                    <div class="tab-pane fade" id="tab_2" role="tabpanel">
+                            <div class="opt-list">
+<div class="opt-item"><div class="opt-t">Горячее цинкование</div><div class="opt-d">Покрытие по ГОСТ 9.307 для наружного применения и помещений с повышенной влажностью. Увеличенный срок службы без обслуживания.</div></div>
+<div class="opt-item"><div class="opt-t">Огнезащита</div><div class="opt-d">Огнезащитные составы до требуемого предела огнестойкости несущих элементов конструкции.</div></div>
+<div class="opt-item"><div class="opt-t">Порошковая окраска</div><div class="opt-d">Любой цвет по каталогу RAL. Аккуратная эстетика для общественных интерьеров.</div></div>
+<div class="opt-item"><div class="opt-t">Нестандартные размеры</div><div class="opt-d">Изменённые ширина и угол наклона, забежные ступени, криволинейные марши, нестандартные площадки.</div></div>
+<div class="opt-item"><div class="opt-t">Монтаж под ключ</div><div class="opt-d">Шеф-монтаж или полный монтаж нашей бригадой с предоставлением исполнительной документации.</div></div>
+</div>                        </div>
+                                                                    <div class="tab-pane fade" id="tab_3" role="tabpanel">
+                            <p>Отгружаем изделия укрупнёнными монтажными блоками, чтобы сократить объём работ на площадке. Доставка по Брестской области и всей Республике Беларусь, при необходимости — манипулятором с разгрузкой.</p>
+<ul>
+<li>самовывоз с площадки в Бресте;</li>
+<li>доставка по РБ бортовым транспортом или манипулятором;</li>
+<li>шеф-монтаж: ваша бригада работает под контролем нашего специалиста;</li>
+<li>монтаж под ключ: установка, выверка и закрепление марша нашей бригадой.</li>
+</ul>                        </div>
+
                 </div>
             </div>
         </div>
