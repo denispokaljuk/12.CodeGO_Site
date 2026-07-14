@@ -123,11 +123,13 @@
         border-bottom:1px solid var(--line);
     }
     .site-header .wrap{
-        display:flex;align-items:center;gap:26px;
+        display:flex;align-items:center;gap:0;
         min-height:76px;
     }
     .logo img{height:46px;width:auto;}
-    .nav{display:flex;align-items:center;gap:22px;margin-left:auto;}
+    .nav{display:flex;align-items:center;flex:1;justify-content:space-evenly;gap:10px;}
+    .nav-gap{width:0;padding:0;margin:0;}
+    @media(max-width:960px){.nav-gap{display:none;}}
     .nav a{
         color:var(--ink);font-size:.95rem;font-weight:450;
         padding:6px 2px;position:relative;white-space:nowrap;
@@ -142,7 +144,7 @@
     .header-phone{
         font-family:var(--mono);font-size:.85rem;color:var(--ink);white-space:nowrap;
     }
-    @media(max-width:1290px){.header-phone{display:none;}}
+    @media(min-width:961px) and (max-width:1080px){.header-phone{display:none;}}
     .header-phone:hover{color:var(--clay-deep);}
     .btn-header{padding:11px 22px;font-size:.9rem;}
 
@@ -167,6 +169,8 @@
             padding:18px 28px 24px;margin:0;
         }
         .site-header.menu-open .nav a{padding:10px 0;font-size:1.05rem;width:100%;}
+        .phone-item{width:100%;}
+        .phone-item .drop{display:none;}
     }
 
     /* ---------- выпадающие меню ---------- */
@@ -560,6 +564,7 @@
     <div class="wrap">
         <a class="logo" href="index.html"><img src="images/logo.png" alt="Aldena"></a>
         <nav class="nav" id="siteNav">
+            <i class="nav-gap" aria-hidden="true"></i>
             <div class="nav-item">
                 <div class="nav-row">
                     <a href="О%20компании.html">О компании</a>
@@ -571,6 +576,7 @@
                     <a href="Реквизиты.html">Реквизиты</a>
                     <a href="Портфолио.html">Портфолио</a>
                     <a href="#">Новости</a>
+                    <a href="#">Карьера</a>
                 </div>
             </div>
             <div class="nav-item">
@@ -624,10 +630,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#">Карьера</a>
             <a href="#">Контакты</a>
-        </nav>
-        <div class="header-cta">
             <div class="phone-item">
                 <a class="header-phone" href="tel:+375295920055">+375 (29) 592-00-55</a>
                 <div class="drop phone-drop">
@@ -637,6 +640,8 @@
                     <a href="tel:+375292212669"><span>Конструкторский (Валентина)</span><b>+375 (29) 221-26-69</b></a>
                 </div>
             </div>
+        </nav>
+        <div class="header-cta">
             <a class="btn btn-clay btn-header" href="#" data-open-form>Рассчитать стоимость</a>
         </div>
         <button class="burger" id="burger" aria-label="Меню">
@@ -931,6 +936,7 @@
                     <li><a href="Сертификаты.html">Сертификаты</a></li>
                     <li><a href="Портфолио.html">Портфолио</a></li>
                     <li><a href="Реквизиты.html">Реквизиты</a></li>
+                    <li><a href="#">Карьера</a></li>
                 </ul>
             </div>
             <div>
