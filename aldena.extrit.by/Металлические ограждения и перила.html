@@ -123,14 +123,14 @@
         border-bottom:1px solid var(--line);
     }
     .site-header .wrap{
-        display:flex;align-items:center;gap:34px;
+        display:flex;align-items:center;gap:26px;
         min-height:76px;
     }
     .logo img{height:46px;width:auto;}
-    .nav{display:flex;align-items:center;gap:28px;margin-left:auto;}
+    .nav{display:flex;align-items:center;gap:22px;margin-left:auto;}
     .nav a{
         color:var(--ink);font-size:.95rem;font-weight:450;
-        padding:6px 2px;position:relative;
+        padding:6px 2px;position:relative;white-space:nowrap;
     }
     .nav a::after{
         content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;
@@ -140,8 +140,9 @@
     .nav a.is-active{color:var(--clay-deep);}
     .header-cta{display:flex;align-items:center;gap:18px;}
     .header-phone{
-        font-family:var(--mono);font-size:.85rem;color:var(--ink);
+        font-family:var(--mono);font-size:.85rem;color:var(--ink);white-space:nowrap;
     }
+    @media(max-width:1290px){.header-phone{display:none;}}
     .header-phone:hover{color:var(--clay-deep);}
     .btn-header{padding:11px 22px;font-size:.9rem;}
 
@@ -171,11 +172,7 @@
     /* ---------- выпадающие меню ---------- */
     .nav-item{position:relative;}
     .nav-row{display:flex;align-items:center;gap:5px;}
-    .drop-toggle{
-        display:flex;align-items:center;justify-content:center;
-        background:none;border:none;cursor:pointer;padding:2px;
-        color:var(--muted);
-    }
+    .drop-toggle{display:none;}
     .drop-toggle svg{width:13px;height:13px;transition:transform .2s ease;}
     .drop{
         position:absolute;top:100%;left:-18px;min-width:270px;
@@ -194,12 +191,15 @@
         .nav-item{display:flex;align-items:center;height:76px;}
         .nav-item:hover .drop,.nav-item:focus-within .drop{opacity:1;visibility:visible;transform:none;}
         .nav-item:hover .nav-row a::after{right:0;}
-        .nav-item:hover .drop-toggle svg,.nav-item:focus-within .drop-toggle svg{transform:rotate(180deg);color:var(--clay-deep);}
     }
     @media(max-width:960px){
         .nav-item{width:100%;}
         .nav-row{justify-content:space-between;width:100%;}
-        .drop-toggle{width:42px;height:42px;border:1px solid var(--line);border-radius:9px;flex:0 0 auto;}
+        .drop-toggle{
+            display:flex;align-items:center;justify-content:center;
+            width:42px;height:42px;border:1px solid var(--line);border-radius:9px;
+            background:none;cursor:pointer;color:var(--muted);flex:0 0 auto;padding:2px;
+        }
         .drop{
             position:static;min-width:0;opacity:1;visibility:visible;transform:none;
             border:none;box-shadow:none;background:transparent;
@@ -553,6 +553,7 @@
                     <a href="#">Отзывы</a>
                     <a href="Реквизиты.html">Реквизиты</a>
                     <a href="Портфолио.html">Портфолио</a>
+                    <a href="#">Новости</a>
                 </div>
             </div>
             <div class="nav-item">
@@ -606,7 +607,8 @@
                     </div>
                 </div>
             </div>
-            <a href="Портфолио.html">Портфолио</a>
+            <a href="#">Карьера</a>
+            <a href="#">Контакты</a>
         </nav>
         <div class="header-cta">
             <a class="header-phone" href="tel:+375295920055">+375 (29) 592-00-55</a>
