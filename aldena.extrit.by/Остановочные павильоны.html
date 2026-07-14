@@ -107,9 +107,31 @@
     /* ---------- появление при скролле ---------- */
     .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
     .reveal.in{opacity:1;transform:none;}
+
+    /* направление появления: слева / справа */
+    .reveal.from-l{transform:translate(-32px,10px);}
+    .reveal.from-r{transform:translate(32px,10px);}
+    .reveal.from-l.in,.reveal.from-r.in{transform:none;}
+
+    /* каскад: дети .stagger появляются по очереди */
+    .stagger > .reveal:nth-child(2){transition-delay:.12s;}
+    .stagger > .reveal:nth-child(3){transition-delay:.24s;}
+    .stagger > .reveal:nth-child(4){transition-delay:.36s;}
+    .stagger > .reveal:nth-child(5){transition-delay:.48s;}
+    .stagger > .reveal:nth-child(6){transition-delay:.6s;}
+
+    /* фото «настраивают резкость»: лёгкий zoom-settle при появлении */
+    .reveal:not(.in) .gallery img,
+    .gallery .reveal:not(.in) img{transform:scale(1.07);}
+
     @media(prefers-reduced-motion:reduce){
         html{scroll-behavior:auto;}
-        .reveal{opacity:1;transform:none;transition:none;}
+        .reveal,.reveal.from-l,.reveal.from-r{opacity:1;transform:none;transition:none;}
+        .stagger > .reveal{transition-delay:0s;}
+        .reveal:not(.in) .gallery img,
+        .gallery .reveal:not(.in) img{transform:none;}
+        .hero-media img{transform:none;transition:none;}
+        .hero .eyebrow::before{animation:none;}
     }
 
     /* ============================================================
@@ -270,7 +292,9 @@
         border:1px solid var(--line);background:var(--cream);
         box-shadow:0 30px 60px -40px rgba(25,25,23,.45);
     }
-    .hero-media img{cursor:zoom-in;}
+    .hero-media img{cursor:zoom-in;transform:scale(1.06);transition:transform .25s ease-out;will-change:transform;}
+    .hero .eyebrow::before{animation:line-grow .9s ease .15s both;}
+    @keyframes line-grow{from{width:0;}}
     .hero-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;}
     .hero-media figcaption{
         font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);
@@ -442,7 +466,9 @@
     .opt .opt-num{
         font-family:var(--serif);font-style:italic;font-size:1.9rem;color:var(--cream-deep);
         line-height:1;display:block;margin-bottom:12px;
+        transition:color .25s ease;
     }
+    .opt:hover .opt-num{color:var(--clay);}
     .opt b{display:block;font-family:var(--serif);font-weight:400;font-size:1.22rem;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px;}
     .opt span{font-size:.88rem;color:var(--muted);line-height:1.6;}
 
@@ -706,7 +732,7 @@
 <section class="hero">
     <div class="wrap">
         <div class="hero-grid">
-            <div class="reveal">
+            <div class="reveal from-l">
                 <div class="eyebrow">Готовые решения · флагман каталога</div>
                 <h1 class="display">Остановочные павильоны</h1>
                 <p class="lede" style="margin-top:24px;">
@@ -724,7 +750,7 @@
                     Павильоны Aldena уже стоят на улицах Бреста и Брестской области
                 </div>
             </div>
-            <figure class="hero-media reveal">
+            <figure class="hero-media reveal from-r" id="heroMedia">
                 <img src="images/gr/ostanovki/city-line-render-01.jpg"
                      alt="Остановочный павильон серии City Line — рендер проекта для Партизанского проспекта">
                 <figcaption>City Line CL-80 · проект остановки «Партызанскі праспект»</figcaption>
@@ -732,7 +758,7 @@
         </div>
 
         <!-- Индекс серий -->
-        <div class="series-index" id="series">
+        <div class="series-index stagger" id="series">
             <a class="si-card reveal" href="#city-line">
                 <span class="si-kicker">Серия 01 · флагман</span>
                 <b>City Line</b>
@@ -777,7 +803,7 @@
         </div>
 
         <div class="series-cols">
-            <div class="reveal">
+            <div class="reveal from-l">
                 <div class="h3-sub">Модельный ряд</div>
                 <div class="spec-wrap">
                     <table>
@@ -811,7 +837,7 @@
                 </a>
             </div>
 
-            <div class="reveal">
+            <div class="reveal from-r">
                 <div class="h3-sub">Реализованные проекты</div>
                 <div class="gallery" style="grid-template-columns:1fr 1fr;">
                     <figure class="tall">
@@ -831,16 +857,16 @@
         </div>
 
         <div class="h3-sub reveal" style="margin-top:44px;">Рендеры и брендирование</div>
-        <div class="gallery reveal">
-            <figure>
+        <div class="gallery stagger">
+            <figure class="reveal">
                 <img src="images/gr/ostanovki/city-line-render-03.jpg" alt="Рендер павильона City Line CL-80 — вид с фасада">
                 <figcaption>CL-80 · фронтальный вид</figcaption>
             </figure>
-            <figure>
+            <figure class="reveal">
                 <img src="images/gr/ostanovki/city-line-render-lode-01.jpg" alt="Рендер павильона City Line в брендировании медицинского центра «ЛОДЭ»">
                 <figcaption>CL-60 · брендирование «ЛОДЭ»</figcaption>
             </figure>
-            <figure>
+            <figure class="reveal">
                 <img src="images/gr/ostanovki/city-line-photo-vodokanal-01.jpg" alt="Павильон City Line с рекламными лайтбоксами — остановка «Водоканал»">
                 <figcaption>«Водоканал» · рекламные поверхности</figcaption>
             </figure>
@@ -867,7 +893,7 @@
         </div>
 
         <div class="series-cols">
-            <div class="reveal">
+            <div class="reveal from-l">
                 <div class="h3-sub">Модельный ряд</div>
                 <div class="spec-wrap">
                     <table>
@@ -895,7 +921,7 @@
                 </a>
             </div>
 
-            <div class="reveal">
+            <div class="reveal from-r">
                 <div class="h3-sub">Фото смонтированных павильонов</div>
                 <div class="gallery" style="grid-template-columns:1fr 1fr;">
                     <figure class="tall">
@@ -934,7 +960,7 @@
         </div>
 
         <div class="series-cols">
-            <div class="reveal">
+            <div class="reveal from-l">
                 <div class="h3-sub">Модельный ряд</div>
                 <div class="spec-wrap">
                     <table>
@@ -960,7 +986,7 @@
                 </a>
             </div>
 
-            <div class="reveal">
+            <div class="reveal from-r">
                 <div class="h3-sub">Фотографии серии</div>
                 <div class="soon">
                     Фото и рендеры серии City Base<br>готовятся к публикации
@@ -1007,7 +1033,7 @@
             <div class="eyebrow">Под ваш город и бренд</div>
             <h2 class="h2">Брендирование и дооснащение</h2>
         </div>
-        <div class="opt-grid">
+        <div class="opt-grid stagger">
             <div class="opt reveal">
                 <span class="opt-num">01</span>
                 <b>Название и навигация</b>
@@ -1226,6 +1252,26 @@
             if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
         }
     });
+
+    /* ---------- лёгкий параллакс рендера в hero ---------- */
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var heroMedia = document.getElementById('heroMedia');
+    if (heroMedia && !reduceMotion){
+        var heroImgEl = heroMedia.querySelector('img');
+        var heroTicking = false;
+        window.addEventListener('scroll', function(){
+            if (heroTicking) return;
+            heroTicking = true;
+            requestAnimationFrame(function(){
+                var y = window.scrollY;
+                if (y < 900){
+                    var shift = Math.min(y * 0.035, 10);
+                    heroImgEl.style.transform = 'translateY(' + shift.toFixed(1) + 'px) scale(1.06)';
+                }
+                heroTicking = false;
+            });
+        }, {passive:true});
+    }
 
     /* ---------- мобильное меню ---------- */
     var burger = document.getElementById('burger');
