@@ -168,6 +168,51 @@
         .site-header.menu-open .nav a{padding:10px 0;font-size:1.05rem;width:100%;}
     }
 
+    /* ---------- выпадающие меню ---------- */
+    .nav-item{position:relative;}
+    .nav-row{display:flex;align-items:center;gap:5px;}
+    .drop-toggle{
+        display:flex;align-items:center;justify-content:center;
+        background:none;border:none;cursor:pointer;padding:2px;
+        color:var(--muted);
+    }
+    .drop-toggle svg{width:13px;height:13px;transition:transform .2s ease;}
+    .drop{
+        position:absolute;top:100%;left:-18px;min-width:270px;
+        background:var(--paper);border:1px solid var(--line);border-radius:14px;
+        box-shadow:0 26px 50px -26px rgba(25,25,23,.4);
+        padding:10px;z-index:70;
+        opacity:0;visibility:hidden;transform:translateY(10px);
+        transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+    }
+    .drop a{display:block;padding:9px 14px;border-radius:9px;color:var(--ink);font-size:.92rem;white-space:nowrap;}
+    .drop a::after{content:none;}
+    .drop a:hover{background:var(--cream);color:var(--clay-deep);}
+    .drop-wide .drop-cols{column-count:2;column-gap:8px;}
+    .drop-wide .drop-cols a{break-inside:avoid;}
+    @media(min-width:961px){
+        .nav-item{display:flex;align-items:center;height:76px;}
+        .nav-item:hover .drop,.nav-item:focus-within .drop{opacity:1;visibility:visible;transform:none;}
+        .nav-item:hover .nav-row a::after{right:0;}
+        .nav-item:hover .drop-toggle svg,.nav-item:focus-within .drop-toggle svg{transform:rotate(180deg);color:var(--clay-deep);}
+    }
+    @media(max-width:960px){
+        .nav-item{width:100%;}
+        .nav-row{justify-content:space-between;width:100%;}
+        .drop-toggle{width:42px;height:42px;border:1px solid var(--line);border-radius:9px;flex:0 0 auto;}
+        .drop{
+            position:static;min-width:0;opacity:1;visibility:visible;transform:none;
+            border:none;box-shadow:none;background:transparent;
+            padding:0 0 8px 16px;display:none;
+        }
+        .nav-item.open .drop{display:block;}
+        .nav-item.open .drop-toggle{border-color:var(--clay);color:var(--clay-deep);}
+        .nav-item.open .drop-toggle svg{transform:rotate(180deg);}
+        .drop-wide .drop-cols{column-count:1;}
+        .drop a{white-space:normal;}
+        .site-header.menu-open .nav .drop a{font-size:.95rem;padding:8px 0;width:100%;}
+    }
+
     /* ============================================================
        Хлебные крошки
        ============================================================ */
@@ -498,10 +543,69 @@
     <div class="wrap">
         <a class="logo" href="index.html"><img src="images/logo.png" alt="Aldena"></a>
         <nav class="nav" id="siteNav">
-            <a href="О%20компании.html">О компании</a>
-            <a href="Производство.html" class="is-active">Производство</a>
-            <a href="Готовые%20решения.html">Готовые решения</a>
-            <a href="Услуги.html">Услуги</a>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="О%20компании.html">О компании</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «О компании»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop">
+                    <a href="Сертификаты.html">Сертификаты</a>
+                    <a href="#">Отзывы</a>
+                    <a href="Реквизиты.html">Реквизиты</a>
+                    <a href="Портфолио.html">Портфолио</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="Производство.html" class="is-active">Производство</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «Производство»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop">
+                    <a href="Металлоконструкции.html">Металлоконструкции</a>
+                    <a href="Изделия%20из%20нержавеющей%20стали.html">Изделия из нержавеющей стали</a>
+                    <a href="Архитектурные%20стеклянные%20конструкции.html">Архитектурные стеклянные конструкции</a>
+                    <a href="Быстровозводимые%20здания.html">Быстровозводимые здания</a>
+                    <a href="Строительство%20под%20ключ.html">Строительство под ключ</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="Готовые%20решения.html">Готовые решения</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «Готовые решения»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop drop-wide">
+                    <div class="drop-cols">
+                        <a href="#">Остановочные павильоны</a>
+                        <a href="#">Торговые павильоны</a>
+                        <a href="#">Велопарковки</a>
+                        <a href="#">Контейнеры для ТБО</a>
+                        <a href="#">Кабины для курения</a>
+                        <a href="#">Навесы для ТБО</a>
+                        <a href="#">Козырьки</a>
+                        <a href="#">Малые архитектурные формы</a>
+                        <a href="#">Контрольно-пропускные пункты</a>
+                        <a href="#">Бытовки</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="Услуги.html">Услуги</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «Услуги»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop drop-wide">
+                    <div class="drop-cols">
+                        <a href="#">Проектирование</a>
+                        <a href="#">Лазерная резка металла</a>
+                        <a href="#">Лазерная сварка</a>
+                        <a href="#">Сварочные работы</a>
+                        <a href="#">Безвоздушная покраска</a>
+                        <a href="#">Огнезащита конструкций</a>
+                        <a href="#">Раскрой металла на ленточно-пильных станках</a>
+                        <a href="#">Строительно-монтажные работы</a>
+                    </div>
+                </div>
+            </div>
             <a href="Портфолио.html">Портфолио</a>
         </nav>
         <div class="header-cta">
@@ -958,6 +1062,14 @@
     burger.addEventListener('click', function(){
         burger.classList.toggle('open');
         header.classList.toggle('menu-open');
+    });
+
+    /* ---------- подменю (раскрытие на мобильном) ---------- */
+    Array.prototype.forEach.call(document.querySelectorAll('.drop-toggle'), function(btn){
+        btn.addEventListener('click', function(){
+            var item = btn.closest('.nav-item');
+            if (item) item.classList.toggle('open');
+        });
     });
 
     /* ---------- появление при скролле ---------- */
