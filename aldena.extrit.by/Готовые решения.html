@@ -263,15 +263,32 @@
 
     /* ---------- плашка-переключатель на Производство ---------- */
     .switch-note{
-        display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-        background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);
+        position:relative;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+        background:var(--cream);
+        border:1.5px dashed var(--clay-deep);
+        border-radius:var(--radius);
         padding:18px 24px;margin-top:44px;
+        cursor:pointer;text-decoration:none;
+        transition:background .2s ease;
     }
-    .switch-note p{color:var(--ink-soft);font-size:.95rem;flex:1;min-width:260px;}
-    .switch-note a{
+    .switch-note:hover{background:var(--clay-wash);}
+    .sn-body{display:flex;align-items:center;gap:14px;flex-wrap:wrap;flex:1;transition:opacity .2s ease;}
+    .switch-note:hover .sn-body{opacity:.22;}
+    .sn-body p{color:var(--ink-soft);font-size:.95rem;flex:1;min-width:260px;}
+    .sn-go{
         font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;white-space:nowrap;
         color:var(--clay-deep);display:inline-flex;align-items:center;gap:8px;
     }
+    .sn-hover{
+        position:absolute;inset:0;z-index:1;
+        display:flex;align-items:center;justify-content:center;
+        font-family:var(--mono);font-size:1.02rem;font-weight:500;letter-spacing:.08em;
+        color:var(--clay-deep);
+        opacity:0;transform:translateY(5px);
+        transition:opacity .2s ease,transform .2s ease;
+        pointer-events:none;
+    }
+    .switch-note:hover .sn-hover{opacity:1;transform:none;}
 
     /* ============================================================
        Каталог решений
@@ -337,21 +354,49 @@
     .prose p{color:var(--ink-soft);margin-bottom:16px;line-height:1.7;}
     .prose p:last-child{margin-bottom:0;}
 
-    .steps{display:flex;flex-direction:column;}
-    .step{
-        display:grid;grid-template-columns:90px minmax(0,3fr) minmax(0,5fr);gap:28px;
-        padding:30px 0;border-top:1px solid var(--line);align-items:baseline;
+    .flow{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding-top:10px;}
+    .flow::before{
+        content:"";position:absolute;top:44px;left:3%;right:3%;
+        border-top:2px dashed var(--cream-deep);z-index:0;
     }
-    .step:last-child{border-bottom:1px solid var(--line);}
-    .step i{
-        font-family:var(--mono);font-style:normal;font-size:.85rem;
-        color:var(--clay);letter-spacing:.1em;
+    .flow-card{
+        position:relative;z-index:1;
+        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+        padding:66px 22px 26px;overflow:hidden;
+        transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
     }
-    .step b{font-family:var(--serif);font-weight:400;font-size:1.35rem;letter-spacing:-.01em;}
-    .step span{color:var(--muted);font-size:.95rem;line-height:1.6;}
-    @media(max-width:760px){
-        .step{grid-template-columns:56px 1fr;gap:14px;}
-        .step span{grid-column:2;}
+    .flow-card:nth-child(odd){transform:rotate(-1.3deg);}
+    .flow-card:nth-child(even){transform:rotate(1.2deg) translateY(6px);}
+    .flow-card:hover{transform:rotate(0) translateY(-4px);border-color:var(--clay);box-shadow:0 22px 40px -30px rgba(25,25,23,.35);}
+    .flow-card .flow-dot{
+        position:absolute;top:28px;left:22px;width:15px;height:15px;border-radius:50%;
+        background:var(--clay);box-shadow:0 0 0 5px var(--clay-wash);
+    }
+    .flow-card .flow-ghost{
+        position:absolute;top:-18px;right:10px;
+        font-family:var(--serif);font-size:6.4rem;line-height:1;font-style:italic;
+        color:var(--cream-deep);user-select:none;pointer-events:none;
+    }
+    .flow-card b{
+        display:block;font-family:var(--serif);font-weight:400;font-size:1.3rem;
+        letter-spacing:-.01em;color:var(--ink);margin-bottom:8px;position:relative;
+    }
+    .flow-card>span:last-child{display:block;font-size:.88rem;color:var(--muted);line-height:1.6;position:relative;}
+    .flow-cta-note{
+        margin-top:34px;text-align:center;
+        font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    }
+    .flow-cta-note b{color:var(--clay-deep);font-weight:500;}
+    @media(max-width:960px){
+        .flow{grid-template-columns:1fr 1fr;}
+        .flow::before{display:none;}
+        .flow-card:nth-child(even){transform:rotate(1.2deg);}
+    }
+    @media(max-width:600px){
+        .flow{grid-template-columns:1fr;}
+        .flow-card{padding:60px 20px 24px;}
+        .flow-card:nth-child(odd){transform:rotate(-.8deg);}
+        .flow-card:nth-child(even){transform:rotate(.8deg);}
     }
 
     /* ============================================================
@@ -580,10 +625,13 @@
             </div>
         </div>
 
-        <div class="switch-note reveal">
-            <p><strong>Нужно изделие под ваш проект, а не типовое?</strong> Изготавливаем металлоконструкции по чертежам и эскизам — от каркасов зданий до индивидуальных изделий.</p>
-            <a href="Производство.html">Перейти в Производство →</a>
-        </div>
+        <a class="switch-note reveal" href="Производство.html">
+            <span class="sn-body">
+                <p><strong>Нужно изделие под ваш проект, а не типовое?</strong> Изготавливаем металлоконструкции по чертежам и эскизам — от каркасов зданий до индивидуальных изделий.</p>
+                <span class="sn-go">Перейти в Производство →</span>
+            </span>
+            <span class="sn-hover">Перейти в Производство →</span>
+        </a>
     </div>
 </section>
 
@@ -704,24 +752,34 @@
             </div>
         </div>
 
-        <div class="steps">
-            <div class="step reveal">
-                <i>01</i><b>Заявка</b>
+        <div class="flow reveal">
+            <div class="flow-card">
+                <span class="flow-dot"></span>
+                <span class="flow-ghost">1</span>
+                <b>Заявка</b>
                 <span>Выбираете изделие из каталога или описываете задачу — по телефону или через форму.</span>
             </div>
-            <div class="step reveal">
-                <i>02</i><b>Расчёт за 1 день</b>
+            <div class="flow-card">
+                <span class="flow-dot"></span>
+                <span class="flow-ghost">2</span>
+                <b>Расчёт за 1 день</b>
                 <span>Подбираем комплектацию, считаем стоимость с доставкой, высылаем коммерческое предложение.</span>
             </div>
-            <div class="step reveal">
-                <i>03</i><b>Договор и производство</b>
+            <div class="flow-card">
+                <span class="flow-dot"></span>
+                <span class="flow-ghost">3</span>
+                <b>Договор и производство</b>
                 <span>Типовая конструкция изготавливается по отработанной технологии в короткий срок.</span>
             </div>
-            <div class="step reveal">
-                <i>04</i><b>Доставка и установка</b>
+            <div class="flow-card">
+                <span class="flow-dot"></span>
+                <span class="flow-ghost">4</span>
+                <b>Доставка и установка</b>
                 <span>Доставляем по всей Беларуси, при необходимости монтируем и сдаём под ключ.</span>
             </div>
         </div>
+
+        <div class="flow-cta-note reveal">весь путь — <b>от 5 рабочих дней</b> для типовых изделий</div>
     </div>
 </section>
 
