@@ -215,6 +215,23 @@
         .site-header.menu-open .nav .drop a{font-size:.95rem;padding:8px 0;width:100%;}
     }
 
+    /* ---------- телефоны отделов в шапке ---------- */
+    .phone-item{position:relative;display:flex;align-items:center;}
+    .phone-drop{left:auto;right:-12px;min-width:300px;}
+    .phone-drop a{display:block;padding:10px 14px;}
+    .phone-drop a span{
+        display:block;font-family:var(--mono);font-size:.64rem;
+        letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+        margin-bottom:3px;white-space:normal;
+    }
+    .phone-drop a b{font-family:var(--mono);font-weight:500;font-size:.9rem;color:var(--ink);}
+    .phone-drop a:hover b{color:var(--clay-deep);}
+    .phone-drop a:first-child span{color:var(--clay);}
+    @media(min-width:961px){
+        .phone-item{height:76px;}
+        .phone-item:hover .drop,.phone-item:focus-within .drop{opacity:1;visibility:visible;transform:none;}
+    }
+
     /* ============================================================
        Hero
        ============================================================ */
@@ -631,7 +648,15 @@
             <a href="#">Контакты</a>
         </nav>
         <div class="header-cta">
-            <a class="header-phone" href="tel:+375295920055">+375 (29) 592-00-55</a>
+            <div class="phone-item">
+                <a class="header-phone" href="tel:+375295920055">+375 (29) 592-00-55</a>
+                <div class="drop phone-drop">
+                    <a href="tel:+375295920055"><span>Отдел продаж (Янина)</span><b>+375 (29) 592-00-55</b></a>
+                    <a href="tel:+375333260055"><span>Отдел снабжения (Татьяна)</span><b>+375 (33) 326-00-55</b></a>
+                    <a href="tel:+375295190055"><span>Отдел ПТО (Константин)</span><b>+375 (29) 519-00-55</b></a>
+                    <a href="tel:+375292212669"><span>Конструкторский (Валентина)</span><b>+375 (29) 221-26-69</b></a>
+                </div>
+            </div>
             <a class="btn btn-clay btn-header" href="#" data-open-form>Рассчитать стоимость</a>
         </div>
         <button class="burger" id="burger" aria-label="Меню">
