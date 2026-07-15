@@ -6,15 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <meta property="og:image" content="images/logo.jpg">
-    <title>Индивидуальные металлоизделия по чертежам — Брест — Aldena</title>
+    <title>Карьера — работа в Aldena: производство металлоконструкций в Бресте</title>
     <link rel="icon" type="image/png" href="images/logo.jpg" />
     <link href="templates/extrit/fonts/fonts.css" rel="stylesheet">
 
     <style>
     /* ============================================================
-       Aldena — «Индивидуальные изделия» [КАТ]
-       Одна сильная страница (по v2 4.1.10): по чертежам, нестандартные,
-       декоративные, каркасы оборудования. Детских страниц нет.
+       Aldena — «Карьера»
        Фирменный стиль: тёплая бумага, серифные заголовки, глиняный акцент.
        ============================================================ */
 
@@ -327,137 +325,6 @@
     }
     .req-line b{font-family:var(--mono);font-weight:500;color:var(--ink);}
 
-    /* ---------- якорная навигация по типам ---------- */
-    .anchor-nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px;}
-    .anchor-chip{
-        display:inline-flex;align-items:center;gap:9px;
-        font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;
-        color:var(--ink);background:var(--paper);
-        border:1px solid var(--line);border-radius:999px;
-        padding:10px 20px;
-        transition:border-color .18s ease,background .18s ease,color .18s ease;
-    }
-    .anchor-chip:hover{border-color:var(--clay);color:var(--clay-deep);background:var(--clay-wash);}
-    .anchor-chip .n{color:var(--clay);}
-
-    /* ---------- якорный блок типа изделия ---------- */
-    .block-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:34px;}
-    .block-head .h2{margin-bottom:0;}
-    .block-num{
-        font-family:var(--serif);font-style:italic;font-size:2.2rem;
-        color:var(--cream-deep);line-height:1;user-select:none;
-    }
-    .section-cream .block-num{color:#dcd9cc;}
-    .prose p{color:var(--ink-soft);margin-bottom:16px;line-height:1.7;}
-    .prose p:last-child{margin-bottom:0;}
-    .prose ul{list-style:none;margin:14px 0 0;}
-    .prose ul li{
-        position:relative;padding-left:22px;margin-bottom:9px;
-        color:var(--ink-soft);line-height:1.55;font-size:.97rem;
-    }
-    .prose ul li::before{
-        content:"";position:absolute;left:0;top:.66em;
-        width:10px;height:2px;background:var(--clay);
-    }
-    .prose .list-label{
-        font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
-        text-transform:uppercase;color:var(--muted);margin-top:22px;
-    }
-
-    /* ---------- таблица ТХ ---------- */
-    .spec{
-        width:100%;border-collapse:separate;border-spacing:0;
-        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-        overflow:hidden;font-size:.92rem;
-    }
-    .spec caption{
-        text-align:left;font-family:var(--mono);font-size:.7rem;
-        letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
-        padding:0 0 12px;caption-side:top;
-    }
-    .spec td{
-        padding:12px 18px;border-bottom:1px solid var(--line);
-        color:var(--ink-soft);line-height:1.5;vertical-align:top;
-    }
-    .spec tr:last-child td{border-bottom:none;}
-    .spec td:first-child{
-        font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;
-        color:var(--muted);width:42%;
-    }
-    .spec tr:hover td{background:var(--clay-wash);}
-
-    /* ---------- опции ---------- */
-    .opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px;}
-    @media(max-width:900px){.opt-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:600px){.opt-grid{grid-template-columns:1fr;}}
-    .opt{
-        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-        padding:20px 22px;
-        transition:border-color .2s ease,transform .2s ease;
-    }
-    .opt:hover{border-color:var(--clay);transform:translateY(-3px);}
-    .opt b{
-        display:block;font-family:var(--serif);font-weight:400;font-size:1.08rem;
-        letter-spacing:-.01em;color:var(--ink);margin-bottom:6px;
-    }
-    .opt span{font-size:.87rem;color:var(--muted);line-height:1.55;}
-    .opts-label{
-        font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
-        text-transform:uppercase;color:var(--muted);margin-top:40px;
-    }
-
-    /* ---------- плашка-переключатель ---------- */
-    .switch-note{
-        position:relative;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-        background:var(--cream);
-        border:1.5px dashed var(--clay-deep);
-        border-radius:var(--radius);
-        padding:18px 24px;margin-top:44px;
-        cursor:pointer;text-decoration:none;
-        transition:background .2s ease;
-    }
-    .switch-note:hover{background:var(--clay-wash);}
-    .sn-body{display:flex;align-items:center;gap:14px;flex-wrap:wrap;flex:1;transition:opacity .2s ease;}
-    .switch-note:hover .sn-body{opacity:.22;}
-    .sn-body p{color:var(--ink-soft);font-size:.95rem;flex:1;min-width:260px;margin:0;}
-    .sn-go{
-        font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;white-space:nowrap;
-        color:var(--clay-deep);display:inline-flex;align-items:center;gap:8px;
-    }
-    .sn-hover{
-        position:absolute;inset:0;z-index:1;
-        display:flex;align-items:center;justify-content:center;
-        font-family:var(--mono);font-size:1.02rem;font-weight:500;letter-spacing:.08em;
-        color:var(--clay-deep);
-        opacity:0;transform:translateY(5px);
-        transition:opacity .2s ease,transform .2s ease;
-        pointer-events:none;
-    }
-    .switch-note:hover .sn-hover{opacity:1;transform:none;}
-
-    /* ---------- связанные разделы ---------- */
-    .rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-    @media(max-width:900px){.rel-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:600px){.rel-grid{grid-template-columns:1fr;}}
-    a.rel{
-        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-        padding:24px 26px;display:flex;flex-direction:column;gap:7px;
-        transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
-    }
-    a.rel:hover{transform:translateY(-4px);border-color:var(--clay);box-shadow:0 22px 40px -30px rgba(25,25,23,.35);}
-    a.rel .rel-tag{
-        font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;
-        text-transform:uppercase;color:var(--muted);
-    }
-    a.rel b{font-family:var(--serif);font-weight:400;font-size:1.22rem;letter-spacing:-.01em;color:var(--ink);}
-    a.rel span{font-size:.88rem;color:var(--muted);line-height:1.55;flex:1;}
-    a.rel .rel-go{
-        font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;color:var(--clay);
-        margin-top:8px;display:inline-flex;align-items:center;gap:7px;
-        transition:gap .18s ease;
-    }
-    a.rel:hover .rel-go{gap:12px;color:var(--clay-deep);}
-
     /* ============================================================
        CTA
        ============================================================ */
@@ -586,7 +453,7 @@
             </div>
             <div class="nav-item">
                 <div class="nav-row">
-                    <a href="Производство.html" class="is-active">Производство</a>
+                    <a href="Производство.html">Производство</a>
                     <button class="drop-toggle" type="button" aria-label="Подменю «Производство»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
                 </div>
                 <div class="drop">
@@ -659,106 +526,127 @@
 <div class="wrap">
     <nav class="crumbs" aria-label="Хлебные крошки">
         <a href="index.html">Главная</a><span class="sep">/</span>
-        <a href="Производство.html">Производство</a><span class="sep">/</span>
-        <a href="Металлоконструкции.html">Металлоконструкции</a><span class="sep">/</span>
-        <span class="here">Индивидуальные изделия</span>
+        <a href="О%20компании.html">О компании</a><span class="sep">/</span>
+        <span class="here">Карьера</span>
     </nav>
 </div>
 
 <section class="hero">
     <div class="wrap">
         <div class="reveal" style="max-width:820px;">
-            <div class="eyebrow">Металлоконструкции · По чертежам</div>
-            <h1 class="display">Индивидуальные металлоизделия</h1>
+            <div class="eyebrow">Карьера · Брест</div>
+            <h1 class="display">Работа в Aldena</h1>
             <p class="lede" style="margin-top:24px;">
-                Изготавливаем нестандартные металлоконструкции по чертежам, эскизам
-                и даже словесному описанию: от каркасов оборудования до декоративных
-                конструкций. Конструкторский отдел доведёт вашу идею до рабочей
-                документации, цех — до готового изделия.
+                Aldena — производственная компания в Бресте: собственный цех
+                металлоконструкций, конструкторский отдел, монтажные бригады.
+                Мы всегда рады специалистам, которые любят работать с металлом
+                и хотят видеть результат своего труда в городе.
             </p>
             <div class="hero-ctas">
-                <a href="#" class="btn btn-clay" data-open-form>Отправить чертёж на расчёт <span class="arr">→</span></a>
+                <a href="mailto:aldenagroup@gmail.com?subject=Резюме" class="btn btn-clay">Отправить резюме <span class="arr">→</span></a>
                 <a href="tel:+375295920055" class="btn btn-ghost">+375 (29) 592-00-55</a>
             </div>
             <div class="hero-note">
                 <span class="dot"></span>
-                Расчёт по чертежу или эскизу — за 1–2 рабочих дня
+                Об актуальных вакансиях уточняйте по телефону — расскажем, кого ищем сейчас
             </div>
         </div>
     </div>
 </section>
 
-<!-- ======================= Что изготавливаем ======================= -->
-<section class="section section-cream" id="what">
-    <div class="wrap">
-        <div class="reveal" style="margin-bottom:6px;">
-            <div class="eyebrow">Что изготавливаем</div>
-            <h2 class="h2">Любое изделие из металла</h2>
-        </div>
-        <div class="opt-grid reveal">
-            <div class="opt"><b>Металлоизделия по чертежам</b><span>Точное изготовление по вашей документации КМ/КМД с контролем геометрии и сварных швов.</span></div>
-            <div class="opt"><b>Нестандартные конструкции</b><span>Конструкции без типовых аналогов — проработаем узлы и технологию изготовления.</span></div>
-            <div class="opt"><b>Декоративные металлоконструкции</b><span>Архитектурные и интерьерные элементы: рамы, экраны, декоративные каркасы.</span></div>
-            <div class="opt"><b>Каркасы оборудования</b><span>Опорные рамы, постаменты и каркасы под технологическое оборудование.</span></div>
-            <div class="opt"><b>Опорные конструкции</b><span>Кронштейны, стойки, опоры под коммуникации и инженерные системы.</span></div>
-            <div class="opt"><b>Закладные детали</b><span>Пластины и анкерные закладные — подробнее в разделе «Элементы каркаса».</span></div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================= Как это работает ======================= -->
-<section class="section" id="how">
-    <div class="wrap">
-        <div class="two-col">
-            <div class="reveal">
-                <div class="eyebrow">Как это работает</div>
-                <h2 class="h2">От эскиза до изделия</h2>
-            </div>
-            <div class="prose reveal">
-                <p>
-                    <strong>Есть чертёж</strong> — присылайте в любом формате
-                    (PDF, DWG, DXF, фото от руки), посчитаем стоимость и срок.
-                </p>
-                <p>
-                    <strong>Чертежа нет</strong> — опишите задачу и приложите фото
-                    места установки. Конструкторский отдел разработает эскиз,
-                    согласует с вами и выпустит рабочую документацию.
-                </p>
-                <p>
-                    Работаем с чёрной и нержавеющей сталью, выполняем лазерную
-                    резку, сварку, покраску. Единичные изделия и серии.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================= Связанные разделы ======================= -->
-<section class="section section-cream" id="related">
+<!-- ======================= Направления работы ======================= -->
+<section class="section section-cream" id="directions">
     <div class="wrap">
         <div class="reveal" style="margin-bottom:44px;">
-            <div class="eyebrow">Связанные разделы</div>
-            <h2 class="h2">Смотрите также</h2>
+            <div class="eyebrow">Направления работы</div>
+            <h2 class="h2">Кто нужен производству металлоконструкций</h2>
         </div>
-        <div class="rel-grid">
-            <a class="rel reveal" href="Элементы%20каркаса.html">
-                <span class="rel-tag">Металлоконструкции</span>
-                <b>Элементы каркаса</b>
-                <span>Колонны, балки, прогоны и закладные детали по чертежам</span>
-                <span class="rel-go">Перейти →</span>
-            </a>
-            <a class="rel reveal" href="Индивидуальные%20металлоизделия.html">
-                <span class="rel-tag">Пример карточки</span>
-                <b>Индивидуальные металлоизделия</b>
-                <span>Карточка изделия: полный цикл от расчёта и проектирования до монтажа</span>
-                <span class="rel-go">Перейти →</span>
-            </a>
-            <a class="rel reveal" href="Услуги.html">
-                <span class="rel-tag">Услуги</span>
-                <b>Лазерная резка и сварка</b>
-                <span>Отдельные операции: резка по DXF/DWG, сварочные работы, покраска</span>
-                <span class="rel-go">Перейти →</span>
-            </a>
+
+        <div class="dept-grid">
+            <div class="dept reveal">
+                <span class="dept-tag">Цех</span>
+                <b>Производство</b>
+                <span class="dept-person">Сварщики, сборщики металлоконструкций, операторы станков, маляры</span>
+            </div>
+            <div class="dept reveal">
+                <span class="dept-tag">Объекты</span>
+                <b>Монтаж</b>
+                <span class="dept-person">Монтажники металлоконструкций и ограждающих конструкций, бригадиры</span>
+            </div>
+            <div class="dept reveal">
+                <span class="dept-tag">Инженерия</span>
+                <b>Конструкторский отдел и ПТО</b>
+                <span class="dept-person">Инженеры-конструкторы КМ/КМД, инженеры ПТО, сметчики</span>
+            </div>
+            <div class="dept reveal">
+                <span class="dept-tag">Офис</span>
+                <b>Продажи и снабжение</b>
+                <span class="dept-person">Менеджеры по продажам, специалисты по снабжению и логистике</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= Как откликнуться ======================= -->
+<section class="section" id="apply">
+    <div class="wrap">
+        <div class="two-col">
+            <div class="info-card reveal">
+                <h3>Как попасть в команду</h3>
+                <div class="info-row">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                    <div>
+                        <span class="info-label">Шаг 1 · Резюме</span>
+                        <p>Пришлите резюме на <a href="mailto:aldenagroup@gmail.com?subject=Резюме">aldenagroup@gmail.com</a>
+                        с темой «Резюме» — или просто позвоните и расскажите о себе.</p>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                    <div>
+                        <span class="info-label">Шаг 2 · Разговор</span>
+                        <p>Обсудим опыт, условия и график по телефону
+                        <a href="tel:+375295920055">+375 (29) 592-00-55</a> (Пн–Пт: 08:30–17:00).</p>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                    <div>
+                        <span class="info-label">Шаг 3 · Знакомство</span>
+                        <p>Встречаемся на производстве: г. Брест, ул. Л-та Рябцева, д. 124 —
+                        покажем цех и рабочее место.</p>
+                    </div>
+                </div>
+                <a class="btn btn-ghost" href="mailto:aldenagroup@gmail.com?subject=Резюме">Отправить резюме <span class="arr">→</span></a>
+            </div>
+
+            <div class="info-card reveal">
+                <h3>Что за компания</h3>
+                <div class="info-row">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></span>
+                    <div>
+                        <span class="info-label">Производство</span>
+                        <p>Собственный цех металлоконструкций в Бресте: от лазерной резки
+                        и сварки до покраски и монтажа на объектах.</p>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.26L21 9.27l-4.5 4.38L17.8 20 12 16.77 6.2 20l1.3-6.35L3 9.27l6.1-1.01z"/></svg></span>
+                    <div>
+                        <span class="info-label">Продукция</span>
+                        <p>Каркасы зданий, лестницы, ограждения, изделия из нержавеющей стали,
+                        остановочные павильоны и другие готовые решения.</p>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                    <div>
+                        <span class="info-label">Юридическое лицо</span>
+                        <p class="req-line">ООО «АЛЬДЕНАГРУПП», г. Брест<br>УНП <b>291309056</b> · официальное трудоустройство</p>
+                    </div>
+                </div>
+                <a class="btn btn-ghost" href="О%20компании.html">Подробнее о компании <span class="arr">→</span></a>
+            </div>
         </div>
     </div>
 </section>
@@ -767,17 +655,18 @@
 <section class="cta">
     <div class="wrap cta-inner">
         <div class="reveal">
-            <div class="eyebrow">Расчёт за 1–2 рабочих дня</div>
-            <h2>Есть чертёж или идея?</h2>
+            <div class="eyebrow">Карьера в Aldena</div>
+            <h2>Не нашли свою специальность?</h2>
             <p>
-                Пришлите чертёж, эскиз или просто описание задачи — проработаем
-                конструкцию и подготовим коммерческое предложение.
+                Напишите нам в любом случае — сильному специалисту по металлу
+                мы всегда найдём применение. Приложите резюме или коротко
+                опишите свой опыт.
             </p>
         </div>
         <div class="cta-actions reveal">
-            <a href="#" class="btn btn-clay" data-open-form>Получить коммерческое предложение <span class="arr">→</span></a>
+            <a href="mailto:aldenagroup@gmail.com?subject=Резюме" class="btn btn-clay">Отправить резюме <span class="arr">→</span></a>
             <a href="tel:+375295920055" class="btn btn-paper">+375 (29) 592-00-55</a>
-            <div class="cta-phone-note">Отдел продаж · Пн–Пт 08:30–17:00</div>
+            <div class="cta-phone-note">Пн–Пт 08:30–17:00</div>
         </div>
     </div>
 </section>
@@ -854,7 +743,7 @@
                 </div>
                 <div class="field">
                     <label for="f-msg">Сообщение</label>
-                    <textarea id="f-msg" name="field_4" placeholder="Опишите изделие: назначение, размеры, наличие чертежа…"></textarea>
+                    <textarea id="f-msg" name="field_4" placeholder="Опишите задачу: изделие, размеры, сроки…"></textarea>
                 </div>
                 <label class="agree">
                     <input type="checkbox" required>
