@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:image" content="images/gr/veloparkovki/circle-photo-01.jpg">
+    <title>Велопарковки — каталог моделей — Aldena</title>
+    <link rel="icon" type="image/png" href="images/logo.jpg" />
+    <link href="templates/extrit/fonts/fonts.css" rel="stylesheet">
+
+    <style>
+    /* ============================================================
+       Aldena — «Велопарковки · каталог» (прототип страницы-каталога на много позиций)
+       Шаблон категории «Готовые решения» в фирменном стиле.
+       ============================================================ */
+
+    :root{
+        --paper:      #FAF9F5;
+        --cream:      #F0EEE6;
+        --cream-deep: #E8E6DC;
+        --line:       #DEDCD2;
+        --ink:        #191917;
+        --ink-soft:   #40403B;
+        --muted:      #75746C;
+        --clay:       #D97757;
+        --clay-deep:  #C15F3C;
+        --clay-wash:  #F3E3DB;
+        --olive:      #6C8B74;
+        --night:      #1F1E1B;
+
+        --serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
+        --sans:  'Inter', -apple-system, 'Segoe UI', sans-serif;
+        --mono:  'IBM Plex Mono', 'Consolas', monospace;
+
+        --radius: 14px;
+        --maxw: 1180px;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+        background:var(--paper);
+        color:var(--ink);
+        font-family:var(--sans);
+        font-size:17px;
+        line-height:1.6;
+        -webkit-font-smoothing:antialiased;
+        text-rendering:optimizeLegibility;
+    }
+    img{max-width:100%;display:block;}
+    a{color:var(--clay);text-decoration:none;}
+    a:hover{color:var(--clay-deep);}
+
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+    @media(max-width:640px){.wrap{padding:0 20px;}}
+
+    ::selection{background:var(--clay-wash);color:var(--ink);}
+
+    /* ---------- типографика ---------- */
+    .eyebrow{
+        font-family:var(--mono);
+        font-size:.72rem;
+        letter-spacing:.16em;
+        text-transform:uppercase;
+        color:var(--clay);
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        margin-bottom:20px;
+    }
+    .eyebrow::before{content:"";width:26px;height:1px;background:var(--clay);}
+    h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--ink);}
+    .display{
+        font-size:clamp(2.4rem,5.2vw,3.9rem);
+        line-height:1.06;
+        letter-spacing:-.015em;
+    }
+    .h2{
+        font-size:clamp(1.7rem,3.2vw,2.4rem);
+        line-height:1.15;
+        letter-spacing:-.01em;
+        margin-bottom:22px;
+    }
+    .lede{color:var(--ink-soft);font-size:1.08rem;line-height:1.65;max-width:56ch;}
+
+    /* ---------- кнопки ---------- */
+    .btn{
+        display:inline-flex;align-items:center;justify-content:center;gap:10px;
+        font-family:var(--sans);font-weight:500;font-size:.98rem;
+        padding:15px 28px;border-radius:999px;cursor:pointer;
+        border:1px solid transparent;
+        transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s ease;
+        text-decoration:none;white-space:nowrap;
+    }
+    .btn:active{transform:translateY(1px);}
+    .btn-clay{background:var(--clay);color:#fff;}
+    .btn-clay:hover{background:var(--clay-deep);color:#fff;}
+    .btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink);}
+    .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+    .btn-paper{background:var(--paper);color:var(--ink);}
+    .btn-paper:hover{background:var(--cream);color:var(--ink);}
+    .btn .arr{transition:transform .18s ease;}
+    .btn:hover .arr{transform:translateX(3px);}
+
+    /* ---------- появление при скролле ---------- */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+    .reveal.in{opacity:1;transform:none;}
+
+    /* направление появления: слева / справа */
+    .reveal.from-l{transform:translate(-32px,10px);}
+    .reveal.from-r{transform:translate(32px,10px);}
+    .reveal.from-l.in,.reveal.from-r.in{transform:none;}
+
+    /* каскад: дети .stagger появляются по очереди */
+    .stagger > .reveal:nth-child(2){transition-delay:.12s;}
+    .stagger > .reveal:nth-child(3){transition-delay:.24s;}
+    .stagger > .reveal:nth-child(4){transition-delay:.36s;}
+    .stagger > .reveal:nth-child(5){transition-delay:.48s;}
+    .stagger > .reveal:nth-child(6){transition-delay:.6s;}
+
+    /* фото «настраивают резкость»: лёгкий zoom-settle при появлении */
+    .reveal:not(.in) .gallery img,
+    .gallery .reveal:not(.in) img{transform:scale(1.07);}
+
+    @media(prefers-reduced-motion:reduce){
+        html{scroll-behavior:auto;}
+        .reveal,.reveal.from-l,.reveal.from-r{opacity:1;transform:none;transition:none;}
+        .stagger > .reveal{transition-delay:0s;}
+        .reveal:not(.in) .gallery img,
+        .gallery .reveal:not(.in) img{transform:none;}
+        .hero-media img{transform:none;transition:none;}
+        .hero .eyebrow::before{animation:none;}
+    }
+
+    /* ============================================================
+       Шапка
+       ============================================================ */
+    .site-header{
+        position:sticky;top:0;z-index:60;
+        background:rgba(250,249,245,.92);
+        backdrop-filter:blur(10px);
+        border-bottom:1px solid var(--line);
+    }
+    .site-header .wrap{
+        display:flex;align-items:center;gap:0;
+        min-height:76px;
+    }
+    .logo img{height:46px;width:auto;}
+    .nav{display:flex;align-items:center;flex:1;justify-content:space-evenly;gap:10px;}
+    .nav-gap{width:0;padding:0;margin:0;}
+    @media(max-width:960px){.nav-gap{display:none;}}
+    .nav a{
+        color:var(--ink);font-size:.95rem;font-weight:450;
+        padding:6px 2px;position:relative;white-space:nowrap;
+    }
+    .nav a::after{
+        content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;
+        background:var(--clay);transition:right .2s ease;
+    }
+    .nav a:hover::after,.nav a.is-active::after{right:0;}
+    .nav a.is-active{color:var(--clay-deep);}
+    .header-cta{display:flex;align-items:center;gap:18px;}
+    .header-phone{
+        font-family:var(--mono);font-size:.85rem;color:var(--ink);white-space:nowrap;
+    }
+    @media(min-width:961px) and (max-width:1080px){.header-phone{display:none;}}
+    .header-phone:hover{color:var(--clay-deep);}
+    .btn-header{padding:11px 22px;font-size:.9rem;}
+
+    .burger{
+        display:none;margin-left:auto;
+        width:44px;height:44px;border:1px solid var(--line);border-radius:10px;
+        background:transparent;cursor:pointer;
+        flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    }
+    .burger span{width:18px;height:1.5px;background:var(--ink);transition:transform .2s,opacity .2s;}
+    .burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+    .burger.open span:nth-child(2){opacity:0;}
+    .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+    @media(max-width:960px){
+        .nav,.header-cta{display:none;}
+        .burger{display:flex;}
+        .site-header.menu-open .nav{
+            display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+            position:absolute;left:0;right:0;top:100%;
+            background:var(--paper);border-bottom:1px solid var(--line);
+            padding:18px 28px 24px;margin:0;
+        }
+        .site-header.menu-open .nav a{padding:10px 0;font-size:1.05rem;width:100%;}
+    }
+
+    /* ---------- выпадающие меню ---------- */
+    .nav-item{position:relative;}
+    .nav-row{display:flex;align-items:center;gap:5px;}
+    .drop-toggle{display:none;}
+    .drop-toggle svg{width:13px;height:13px;transition:transform .2s ease;}
+    .drop{
+        position:absolute;top:100%;left:-18px;min-width:270px;
+        background:var(--paper);border:1px solid var(--line);border-radius:14px;
+        box-shadow:0 26px 50px -26px rgba(25,25,23,.4);
+        padding:10px;z-index:70;
+        opacity:0;visibility:hidden;transform:translateY(10px);
+        transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+    }
+    .drop a{display:block;padding:9px 14px;border-radius:9px;color:var(--ink);font-size:.92rem;white-space:nowrap;}
+    .drop a::after{content:none;}
+    .drop a:hover{background:var(--cream);color:var(--clay-deep);}
+    .drop-wide .drop-cols{column-count:2;column-gap:8px;}
+    .drop-wide .drop-cols a{break-inside:avoid;}
+    @media(min-width:961px){
+        .nav-item{display:flex;align-items:center;height:76px;}
+        .nav-item:hover .drop,.nav-item:focus-within .drop{opacity:1;visibility:visible;transform:none;}
+        .nav-item:hover .nav-row a::after{right:0;}
+    }
+    @media(max-width:960px){
+        .nav-item{width:100%;}
+        .nav-row{justify-content:space-between;width:100%;}
+        .drop-toggle{
+            display:flex;align-items:center;justify-content:center;
+            width:42px;height:42px;border:1px solid var(--line);border-radius:9px;
+            background:none;cursor:pointer;color:var(--muted);flex:0 0 auto;padding:2px;
+        }
+        .drop{
+            position:static;min-width:0;opacity:1;visibility:visible;transform:none;
+            border:none;box-shadow:none;background:transparent;
+            padding:0 0 8px 16px;display:none;
+        }
+        .nav-item.open .drop{display:block;}
+        .nav-item.open .drop-toggle{border-color:var(--clay);color:var(--clay-deep);}
+        .nav-item.open .drop-toggle svg{transform:rotate(180deg);}
+        .drop-wide .drop-cols{column-count:1;}
+        .drop a{white-space:normal;}
+        .site-header.menu-open .nav .drop a{font-size:.95rem;padding:8px 0;width:100%;}
+        .phone-item{width:100%;}
+        .phone-item .drop{display:none;}
+    }
+
+    /* ---------- телефоны отделов в шапке ---------- */
+    .phone-item{position:relative;display:flex;align-items:center;}
+    .phone-drop{left:auto;right:-12px;min-width:300px;}
+    .phone-drop a{display:block;padding:10px 14px;}
+    .phone-drop a span{
+        display:block;font-family:var(--mono);font-size:.64rem;
+        letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+        margin-bottom:3px;white-space:normal;
+    }
+    .phone-drop a b{font-family:var(--mono);font-weight:500;font-size:.9rem;color:var(--ink);}
+    .phone-drop a:hover b{color:var(--clay-deep);}
+    .phone-drop a:first-child span{color:var(--clay);}
+    @media(min-width:961px){
+        .phone-item{height:76px;}
+        .phone-item:hover .drop,.phone-item:focus-within .drop{opacity:1;visibility:visible;transform:none;}
+    }
+
+    /* ============================================================
+       Хлебные крошки
+       ============================================================ */
+    .crumbs{
+        font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;
+        color:var(--muted);
+        display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+        padding:26px 0 0;
+    }
+    .crumbs a{color:var(--muted);}
+    .crumbs a:hover{color:var(--clay-deep);}
+    .crumbs .sep{color:var(--line);}
+    .crumbs .here{color:var(--ink);}
+
+    /* ============================================================
+       Hero
+       ============================================================ */
+    .hero{padding:44px 0 64px;}
+    .hero-grid{
+        display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);
+        gap:48px;align-items:center;
+    }
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px;}}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+    .hero-note{
+        display:flex;align-items:center;gap:9px;
+        margin-top:22px;color:var(--muted);font-size:.88rem;
+    }
+    .hero-note .dot{
+        width:8px;height:8px;border-radius:50%;background:var(--olive);
+        box-shadow:0 0 0 4px rgba(108,139,116,.18);flex:0 0 auto;
+    }
+    .hero-media{
+        border-radius:var(--radius);overflow:hidden;
+        border:1px solid var(--line);background:var(--cream);
+        box-shadow:0 30px 60px -40px rgba(25,25,23,.45);
+    }
+    .hero-media img{cursor:zoom-in;transform:scale(1.06);transition:transform .25s ease-out;will-change:transform;}
+    .hero .eyebrow::before{animation:line-grow .9s ease .15s both;}
+    @keyframes line-grow{from{width:0;}}
+    .hero-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;}
+    .hero-media figcaption{
+        font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);
+        padding:12px 18px;border-top:1px solid var(--line);background:var(--paper);
+    }
+
+    /* ============================================================
+       Индекс серий
+       ============================================================ */
+    .series-index{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px;}
+    @media(max-width:900px){.series-index{grid-template-columns:1fr;}}
+    .si-card{
+        display:flex;flex-direction:column;gap:6px;
+        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+        padding:24px 26px;
+        transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+    .si-card:hover{transform:translateY(-4px);border-color:var(--clay);box-shadow:0 22px 40px -30px rgba(25,25,23,.35);}
+    .si-card .si-kicker{
+        font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay-deep);
+    }
+    .si-card b{font-family:var(--serif);font-weight:400;font-size:1.45rem;letter-spacing:-.01em;color:var(--ink);}
+    .si-card span{font-size:.88rem;color:var(--muted);line-height:1.55;}
+    .si-card .si-price{
+        font-family:var(--mono);font-size:.82rem;color:var(--clay-deep);margin-top:8px;
+    }
+    .si-card .si-go{
+        font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;color:var(--clay);
+        margin-top:10px;display:inline-flex;align-items:center;gap:7px;transition:gap .18s ease;
+    }
+    .si-card:hover .si-go{gap:12px;color:var(--clay-deep);}
+
+    /* ============================================================
+       Секции серий
+       ============================================================ */
+    .section{padding:80px 0;}
+    .section-cream{background:var(--cream);}
+
+    .series-head{
+        display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-bottom:8px;
+    }
+    .series-tag{
+        font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+        color:var(--clay-deep);background:var(--clay-wash);
+        padding:5px 12px;border-radius:999px;white-space:nowrap;
+        position:relative;top:-6px;
+    }
+    .series-lede{color:var(--ink-soft);max-width:70ch;line-height:1.7;margin-bottom:40px;}
+
+    .series-cols{
+        display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;
+        align-items:start;
+    }
+    @media(max-width:900px){.series-cols{grid-template-columns:1fr;gap:32px;}}
+
+    /* таблица моделей */
+    .spec-wrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper);}
+    .spec-wrap table{width:100%;border-collapse:collapse;}
+    .spec-wrap th{
+        font-family:var(--mono);font-weight:500;font-size:.68rem;
+        letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+        text-align:left;padding:14px 18px;background:var(--cream);
+        border-bottom:1px solid var(--line);
+    }
+    .spec-wrap td{
+        padding:14px 18px;font-size:.95rem;color:var(--ink-soft);
+        border-bottom:1px solid var(--line);
+    }
+    .spec-wrap tr:last-child td{border-bottom:none;}
+    .spec-wrap td:first-child{font-family:var(--mono);font-size:.88rem;color:var(--ink);white-space:nowrap;}
+    .spec-wrap td.price{font-family:var(--mono);font-size:.88rem;color:var(--clay-deep);white-space:nowrap;}
+    .spec-note{
+        font-size:.82rem;color:var(--muted);margin-top:12px;line-height:1.6;
+    }
+
+    /* комплектация */
+    .kit{list-style:none;display:flex;flex-direction:column;gap:0;margin-top:6px;}
+    .kit li{
+        display:flex;gap:14px;align-items:flex-start;
+        padding:13px 0;border-bottom:1px dashed var(--cream-deep);
+        font-size:.95rem;color:var(--ink-soft);line-height:1.55;
+    }
+    .kit li:last-child{border-bottom:none;}
+    .kit .k-label{
+        font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+        color:var(--muted);flex:0 0 128px;padding-top:4px;
+    }
+    .kit .k-opt{color:var(--clay-deep);font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;
+        border:1px dashed var(--clay);border-radius:999px;padding:1px 8px;margin-left:6px;white-space:nowrap;}
+
+    .h3-sub{
+        font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+        color:var(--muted);margin:34px 0 14px;
+    }
+
+    /* чертежи */
+    .dl{
+        display:inline-flex;align-items:center;gap:12px;
+        border:1px solid var(--line);border-radius:12px;
+        padding:13px 18px;margin-top:8px;margin-right:12px;
+        color:var(--ink);font-size:.9rem;background:var(--paper);
+        transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+    }
+    .dl:hover{border-color:var(--clay);color:var(--ink);transform:translateY(-2px);box-shadow:0 14px 26px -20px rgba(25,25,23,.4);}
+    .dl svg{flex:0 0 auto;color:var(--clay);}
+    .dl small{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+
+    /* галерея */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    @media(max-width:900px){.gallery{grid-template-columns:1fr 1fr;}}
+    @media(max-width:560px){.gallery{grid-template-columns:1fr;}}
+    .gallery figure{
+        position:relative;border-radius:var(--radius);overflow:hidden;
+        border:1px solid var(--line);background:var(--cream);margin:0;
+        cursor:zoom-in;
+    }
+    .gallery figure.tall{grid-row:span 2;}
+    .gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transition:transform .45s ease;}
+    .gallery figure.tall img{aspect-ratio:auto;min-height:100%;}
+    .gallery figure:hover img{transform:scale(1.04);}
+    .gallery figcaption{
+        position:absolute;left:0;right:0;bottom:0;
+        font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;
+        color:#f5f3ec;background:linear-gradient(transparent,rgba(25,25,23,.72));
+        padding:26px 14px 10px;
+    }
+
+    /* плашка «материалы готовятся» */
+    .soon{
+        border:1.5px dashed var(--line);border-radius:var(--radius);
+        background:var(--paper);
+        display:flex;align-items:center;justify-content:center;text-align:center;
+        padding:44px 24px;color:var(--muted);
+        font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;line-height:1.9;
+    }
+
+    /* ============================================================
+       Сравнение моделей
+       ============================================================ */
+    .cmp-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);}
+    .cmp{width:100%;border-collapse:collapse;min-width:680px;}
+    .cmp th{
+        font-family:var(--mono);font-weight:500;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+        color:var(--muted);text-align:left;padding:14px 18px;background:var(--cream);
+        border-bottom:1px solid var(--line);white-space:nowrap;
+    }
+    .cmp td{padding:13px 18px;font-size:.92rem;color:var(--ink-soft);border-bottom:1px solid var(--line);}
+    .cmp tr:last-child td{border-bottom:none;}
+    .cmp td:first-child{font-family:var(--serif);font-size:1.05rem;color:var(--ink);white-space:nowrap;}
+    .cmp td:nth-child(2){font-family:var(--mono);font-size:.85rem;color:var(--ink);white-space:nowrap;}
+    .cmp td.price{font-family:var(--mono);font-size:.85rem;color:var(--clay-deep);white-space:nowrap;}
+    .cmp .cmp-series td{
+        background:var(--cream);font-family:var(--mono);font-size:.68rem;
+        letter-spacing:.12em;text-transform:uppercase;color:var(--clay-deep);padding:9px 18px;
+    }
+
+    /* ============================================================
+       Опции и брендирование
+       ============================================================ */
+    .opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    @media(max-width:900px){.opt-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:600px){.opt-grid{grid-template-columns:1fr;}}
+    .opt{
+        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+        padding:26px 26px 28px;
+        transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+    .opt:hover{transform:translateY(-4px);border-color:var(--clay);box-shadow:0 22px 40px -30px rgba(25,25,23,.35);}
+    .opt .opt-num{
+        font-family:var(--serif);font-style:italic;font-size:1.9rem;color:var(--cream-deep);
+        line-height:1;display:block;margin-bottom:12px;
+        transition:color .25s ease;
+    }
+    .opt:hover .opt-num{color:var(--clay);}
+    .opt b{display:block;font-family:var(--serif);font-weight:400;font-size:1.22rem;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px;}
+    .opt span{font-size:.88rem;color:var(--muted);line-height:1.6;}
+
+    /* ============================================================
+       CTA
+       ============================================================ */
+    .cta{background:var(--night);color:#f5f3ec;padding:96px 0;}
+    .cta .eyebrow{color:var(--clay);}
+    .cta h2{color:#faf9f5;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.1;letter-spacing:-.015em;max-width:22ch;}
+    .cta p{color:#b9b7ae;margin-top:18px;max-width:52ch;font-size:1.02rem;}
+    .cta-inner{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:center;}
+    @media(max-width:860px){.cta-inner{grid-template-columns:1fr;}}
+    .cta-actions{display:flex;flex-direction:column;gap:14px;align-items:stretch;}
+    .cta-actions .btn{width:100%;}
+    .cta-phone-note{
+        font-family:var(--mono);font-size:.78rem;color:#8f8d84;text-align:center;
+    }
+
+    /* ============================================================
+       Футер
+       ============================================================ */
+    .footer{background:var(--paper);border-top:1px solid var(--line);padding:64px 0 0;}
+    .footer-grid{display:grid;grid-template-columns:minmax(0,4fr) repeat(3,minmax(0,3fr));gap:40px;}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+    .footer-logo img{height:52px;width:auto;margin-bottom:18px;}
+    .footer-about{font-size:.9rem;color:var(--muted);line-height:1.7;}
+    .footer-about a{color:var(--ink);}
+    .footer-about a:hover{color:var(--clay-deep);}
+    .footer h4{
+        font-family:var(--mono);font-weight:500;font-size:.72rem;
+        letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+        margin-bottom:18px;
+    }
+    .footer ul{list-style:none;}
+    .footer ul li{margin-bottom:10px;}
+    .footer ul a{color:var(--ink);font-size:.92rem;}
+    .footer ul a:hover{color:var(--clay-deep);}
+    .footer-bottom{
+        margin-top:56px;border-top:1px solid var(--line);
+        padding:22px 0 26px;
+        display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+        font-size:.8rem;color:var(--muted);
+    }
+    .footer-bottom a{color:var(--muted);}
+    .footer-bottom a:hover{color:var(--clay-deep);}
+
+    /* ============================================================
+       Лайтбокс галереи
+       ============================================================ */
+    .lb-veil{
+        position:fixed;inset:0;z-index:100;
+        background:rgba(25,25,23,.9);backdrop-filter:blur(6px);
+        display:none;align-items:center;justify-content:center;
+        padding:48px 68px;
+    }
+    .lb-veil.open{display:flex;}
+    .lb-fig{
+        display:flex;flex-direction:column;align-items:center;gap:0;
+        max-width:min(1240px,100%);max-height:100%;margin:0;
+    }
+    .lb-fig img{
+        max-width:100%;max-height:calc(100vh - 160px);
+        object-fit:contain;border-radius:12px;
+        box-shadow:0 40px 90px -30px rgba(0,0,0,.6);
+    }
+    .lb-cap{
+        font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;
+        color:#b9b7ae;text-align:center;padding:16px 10px 0;
+    }
+    .lb-close{
+        position:absolute;top:20px;right:20px;z-index:2;
+        width:44px;height:44px;border-radius:50%;
+        border:1px solid rgba(245,243,236,.28);background:transparent;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;
+        color:#f5f3ec;font-size:1.05rem;line-height:1;
+        transition:border-color .15s,color .15s,background .15s;
+    }
+    .lb-close:hover{border-color:var(--clay);color:var(--clay);}
+    .lb-arrow{
+        position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+        width:46px;height:46px;border-radius:50%;
+        border:1px solid rgba(245,243,236,.28);background:transparent;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;color:#f5f3ec;
+        transition:border-color .15s,color .15s;
+    }
+    .lb-arrow:hover{border-color:var(--clay);color:var(--clay);}
+    .lb-arrow svg{width:18px;height:18px;}
+    .lb-prev{left:16px;}
+    .lb-next{right:16px;}
+    @media(max-width:640px){
+        .lb-veil{padding:64px 16px 32px;}
+        .lb-arrow{width:40px;height:40px;}
+        .lb-prev{left:8px;}
+        .lb-next{right:8px;}
+        .lb-fig img{max-height:calc(100vh - 190px);}
+    }
+
+    /* ============================================================
+       Модальное окно формы
+       ============================================================ */
+    .modal-veil{
+        position:fixed;inset:0;z-index:90;
+        background:rgba(25,25,23,.55);backdrop-filter:blur(4px);
+        display:none;align-items:flex-start;justify-content:center;
+        overflow-y:auto;padding:6vh 20px 40px;
+    }
+    .modal-veil.open{display:flex;}
+    .modal-card{
+        background:var(--paper);border-radius:18px;max-width:520px;width:100%;
+        padding:38px 38px 42px;position:relative;
+        box-shadow:0 40px 90px -30px rgba(0,0,0,.5);
+    }
+    @media(max-width:560px){.modal-card{padding:30px 22px 34px;}}
+    .modal-close{
+        position:absolute;top:16px;right:16px;
+        width:38px;height:38px;border-radius:50%;
+        border:1px solid var(--line);background:transparent;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;
+        color:var(--muted);font-size:1rem;line-height:1;
+        transition:border-color .15s,color .15s;
+    }
+    .modal-close:hover{border-color:var(--clay);color:var(--clay-deep);}
+    .modal-card h3{font-size:1.7rem;letter-spacing:-.01em;margin-bottom:8px;}
+    .modal-card .sub{color:var(--muted);font-size:.92rem;margin-bottom:26px;}
+    .field{margin-bottom:16px;}
+    .field label{
+        display:block;font-family:var(--mono);font-size:.7rem;
+        letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+        margin-bottom:7px;
+    }
+    .field input,.field textarea{
+        width:100%;font-family:var(--sans);font-size:.96rem;color:var(--ink);
+        background:var(--cream);border:1px solid transparent;border-radius:10px;
+        padding:13px 16px;outline:none;
+        transition:border-color .15s,background .15s;
+    }
+    .field input:focus,.field textarea:focus{border-color:var(--clay);background:var(--paper);}
+    .field textarea{resize:vertical;min-height:88px;}
+    .agree{
+        display:flex;gap:10px;align-items:flex-start;
+        font-size:.8rem;color:var(--muted);margin:20px 0 24px;line-height:1.5;
+    }
+    .agree input{margin-top:3px;accent-color:var(--clay);}
+    .modal-card .btn{width:100%;}
+    .form-done{
+        display:none;text-align:center;padding:34px 0 10px;
+    }
+    .form-done .tick{
+        width:56px;height:56px;border-radius:50%;margin:0 auto 20px;
+        background:var(--clay-wash);color:var(--clay-deep);
+        display:flex;align-items:center;justify-content:center;
+    }
+    .form-done h3{margin-bottom:10px;}
+    .form-done p{color:var(--muted);font-size:.93rem;}
+
+    /* ============================================================
+       Каталог: панель фильтров + сетка карточек + quick-view
+       ============================================================ */
+    .cat-toolbar{
+        position:sticky;top:76px;z-index:50;
+        background:rgba(250,249,245,.95);backdrop-filter:blur(10px);
+        border-bottom:1px solid var(--line);
+        padding:14px 0;
+    }
+    @media(max-width:960px){.cat-toolbar{top:0;position:static;}}
+    .cat-bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;}
+    .cat-search{
+        flex:1 1 210px;max-width:290px;
+        display:flex;align-items:center;gap:9px;
+        background:var(--cream);border:1px solid transparent;border-radius:999px;
+        padding:9px 16px;
+    }
+    .cat-search:focus-within{border-color:var(--clay);background:var(--paper);}
+    .cat-search svg{flex:0 0 auto;color:var(--muted);}
+    .cat-search input{
+        border:none;outline:none;background:transparent;width:100%;
+        font-family:var(--sans);font-size:.92rem;color:var(--ink);
+    }
+    .chip-group{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+    .chip-label{
+        font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;
+        text-transform:uppercase;color:var(--muted);margin-right:2px;
+    }
+    .chip{
+        font-family:var(--sans);font-size:.85rem;font-weight:450;color:var(--ink-soft);
+        border:1px solid var(--line);border-radius:999px;background:var(--paper);
+        padding:7px 15px;cursor:pointer;
+        transition:background .15s,border-color .15s,color .15s;
+    }
+    .chip:hover{border-color:var(--clay);color:var(--clay-deep);}
+    .chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+    .cat-sort{margin-left:auto;display:flex;align-items:center;gap:9px;}
+    .cat-sort label{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+    .cat-sort select{
+        font-family:var(--sans);font-size:.88rem;color:var(--ink);
+        border:1px solid var(--line);border-radius:10px;background:var(--paper);
+        padding:8px 12px;cursor:pointer;outline:none;
+    }
+    .cat-sort select:focus{border-color:var(--clay);}
+    .cat-count{
+        width:100%;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;
+        color:var(--muted);
+    }
+
+    /* сетка карточек */
+    .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+    @media(max-width:960px){.cat-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:600px){.cat-grid{grid-template-columns:1fr;}}
+    .p-card{
+        background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+        overflow:hidden;display:flex;flex-direction:column;
+        transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+    .p-card:hover{transform:translateY(-4px);border-color:var(--clay);box-shadow:0 24px 44px -32px rgba(25,25,23,.4);}
+    .p-card.hidden{display:none;}
+    .p-img{position:relative;cursor:pointer;overflow:hidden;background:var(--cream);}
+    .p-img img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .45s ease;}
+    .p-card:hover .p-img img{transform:scale(1.045);}
+    .p-badge{
+        position:absolute;top:12px;left:12px;
+        font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+        color:var(--ink);background:rgba(250,249,245,.92);border-radius:999px;
+        padding:5px 11px;
+    }
+    .p-zoom{
+        position:absolute;right:12px;bottom:12px;width:34px;height:34px;border-radius:50%;
+        background:rgba(25,25,23,.55);color:#f5f3ec;
+        display:flex;align-items:center;justify-content:center;
+        opacity:0;transition:opacity .2s ease;
+    }
+    .p-card:hover .p-zoom{opacity:1;}
+    .p-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:7px;flex:1;}
+    .p-name{font-family:var(--serif);font-weight:400;font-size:1.32rem;letter-spacing:-.01em;color:var(--ink);}
+    .p-spec{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--muted);line-height:1.7;}
+    .p-desc{font-size:.88rem;color:var(--ink-soft);line-height:1.55;}
+    .p-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+    .p-price{font-family:var(--mono);font-size:.95rem;color:var(--clay-deep);white-space:nowrap;}
+    .p-price small{display:block;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+    .p-actions{display:flex;gap:8px;}
+    .btn-sm{padding:10px 18px;font-size:.86rem;}
+    .p-more{
+        font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;color:var(--clay);
+        background:none;border:none;cursor:pointer;padding:10px 4px;
+    }
+    .p-more:hover{color:var(--clay-deep);}
+
+    .more-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:40px;}
+    .more-note{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--muted);}
+
+    .cat-empty{
+        display:none;text-align:center;padding:70px 20px;
+        border:1.5px dashed var(--line);border-radius:var(--radius);
+        color:var(--muted);font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;line-height:2;
+    }
+
+    /* quick-view */
+    .qv-card{
+        background:var(--paper);border-radius:18px;max-width:920px;width:100%;
+        position:relative;box-shadow:0 40px 90px -30px rgba(0,0,0,.5);
+        display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+        overflow:hidden;
+    }
+    @media(max-width:760px){.qv-card{grid-template-columns:1fr;max-height:calc(100vh - 8vh - 40px);overflow-y:auto;}}
+    .qv-media{background:var(--cream);position:relative;}
+    .qv-media img{width:100%;height:100%;min-height:320px;object-fit:cover;display:block;}
+    @media(max-width:760px){.qv-media img{min-height:0;aspect-ratio:4/3;height:auto;}}
+    .qv-thumbs{
+        position:absolute;left:14px;bottom:14px;display:flex;gap:8px;
+    }
+    .qv-thumbs button{
+        width:52px;height:40px;border-radius:8px;overflow:hidden;cursor:pointer;
+        border:2px solid rgba(250,249,245,.75);padding:0;background:none;
+    }
+    .qv-thumbs button.on{border-color:var(--clay);}
+    .qv-thumbs img{width:100%;height:100%;object-fit:cover;}
+    .qv-body{padding:32px 32px 30px;display:flex;flex-direction:column;gap:12px;}
+    .qv-kicker{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay-deep);}
+    .qv-name{font-family:var(--serif);font-weight:400;font-size:1.9rem;letter-spacing:-.01em;color:var(--ink);}
+    .qv-desc{font-size:.92rem;color:var(--ink-soft);line-height:1.6;}
+    .qv-specs{list-style:none;margin:4px 0 0;}
+    .qv-specs li{
+        display:flex;justify-content:space-between;gap:14px;
+        padding:8px 0;border-bottom:1px dashed var(--cream-deep);
+        font-size:.88rem;color:var(--ink-soft);
+    }
+    .qv-specs li span:first-child{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px;}
+    .qv-price{font-family:var(--mono);font-size:1.15rem;color:var(--clay-deep);margin-top:6px;}
+    .qv-price small{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:8px;}
+    .qv-actions{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
+    .qv-dl{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;color:var(--clay);display:none;align-items:center;gap:8px;}
+    .qv-dl:hover{color:var(--clay-deep);}
+
+    </style>
+</head>
+
+<body>
+
+<!-- ======================= Шапка ======================= -->
+<header class="site-header" id="siteHeader">
+    <div class="wrap">
+        <a class="logo" href="index.html"><img src="images/logo.png" alt="Aldena"></a>
+        <nav class="nav" id="siteNav">
+            <i class="nav-gap" aria-hidden="true"></i>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="О%20компании.html">О компании</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «О компании»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop">
+                    <a href="Сертификаты.html">Сертификаты</a>
+                    <a href="#">Отзывы</a>
+                    <a href="Реквизиты.html">Реквизиты</a>
+                    <a href="Портфолио.html">Портфолио</a>
+                    <a href="#">Новости</a>
+                    <a href="Карьера.html">Карьера</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="Производство.html">Производство</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «Производство»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop">
+                    <a href="Металлоконструкции.html">Металлоконструкции</a>
+                    <a href="Изделия%20из%20нержавеющей%20стали.html">Изделия из нержавеющей стали</a>
+                    <a href="Архитектурные%20стеклянные%20конструкции.html">Архитектурные стеклянные конструкции</a>
+                    <a href="Быстровозводимые%20здания.html">Быстровозводимые здания</a>
+                    <a href="Строительство%20под%20ключ.html">Строительство под ключ</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="Готовые%20решения.html" class="is-active">Готовые решения</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «Готовые решения»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop drop-wide">
+                    <div class="drop-cols">
+                        <a href="Остановочные%20павильоны.html">Остановочные павильоны</a>
+                        <a href="Торговые%20павильоны.html">Торговые павильоны</a>
+                        <a href="Велопарковки.html">Велопарковки</a>
+                        <a href="Контейнеры%20для%20ТБО.html">Контейнеры для ТБО</a>
+                        <a href="Кабины%20для%20курения.html">Кабины для курения</a>
+                        <a href="Навесы%20для%20ТБО.html">Навесы для ТБО</a>
+                        <a href="#">Козырьки</a>
+                        <a href="#">Малые архитектурные формы</a>
+                        <a href="#">Контрольно-пропускные пункты</a>
+                        <a href="Бытовки.html">Бытовки</a>
+                        <a href="Беседки.html">Беседки</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-row">
+                    <a href="Услуги.html">Услуги</a>
+                    <button class="drop-toggle" type="button" aria-label="Подменю «Услуги»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                </div>
+                <div class="drop drop-wide">
+                    <div class="drop-cols">
+                        <a href="#">Проектирование</a>
+                        <a href="#">Лазерная резка металла</a>
+                        <a href="#">Лазерная сварка</a>
+                        <a href="#">Сварочные работы</a>
+                        <a href="#">Безвоздушная покраска</a>
+                        <a href="#">Огнезащита конструкций</a>
+                        <a href="#">Раскрой металла на ленточно-пильных станках</a>
+                        <a href="#">Строительно-монтажные работы</a>
+                    </div>
+                </div>
+            </div>
+            <a href="Контакты.html">Контакты</a>
+            <div class="phone-item">
+                <a class="header-phone" href="tel:+375295920055">+375 (29) 592-00-55</a>
+                <div class="drop phone-drop">
+                    <a href="tel:+375295920055"><span>Отдел продаж (Янина)</span><b>+375 (29) 592-00-55</b></a>
+                    <a href="tel:+375333260055"><span>Отдел снабжения (Татьяна)</span><b>+375 (33) 326-00-55</b></a>
+                    <a href="tel:+375295190055"><span>Отдел ПТО (Константин)</span><b>+375 (29) 519-00-55</b></a>
+                    <a href="tel:+375292212669"><span>Конструкторский (Валентина)</span><b>+375 (29) 221-26-69</b></a>
+                </div>
+            </div>
+        </nav>
+        <div class="header-cta">
+            <a class="btn btn-clay btn-header" href="#" data-open-form>Рассчитать стоимость</a>
+        </div>
+        <button class="burger" id="burger" aria-label="Меню">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ======================= Крошки + Hero ======================= -->
+<div class="wrap">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+        <a href="index.html">Главная</a><span class="sep">/</span>
+        <a href="Готовые%20решения.html">Готовые решения</a><span class="sep">/</span>
+        <span class="here">Велопарковки · каталог</span>
+    </nav>
+</div>
+
+<section class="hero" style="padding-bottom:36px;">
+    <div class="wrap">
+        <div class="reveal" style="max-width:760px;">
+            <div class="eyebrow">Готовые решения · каталог моделей</div>
+            <h1 class="display">Велопарковки</h1>
+            <p class="lede" style="margin-top:22px;">
+                Все модели велопарковок собственного производства — фильтруйте
+                по типу и материалу, открывайте карточку и заказывайте в один клик.
+                Любую модель адаптируем по длине и цвету под вашу площадку.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= Панель фильтров ======================= -->
+<div class="cat-toolbar" id="catTop">
+    <div class="wrap cat-bar">
+        <div class="cat-search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="search" id="catQ" placeholder="Поиск по названию…" aria-label="Поиск по каталогу">
+        </div>
+        <div class="chip-group" data-filter="type">
+            <span class="chip-label">Тип</span>
+            <button class="chip" type="button" data-val="rings">Кольца</button>
+            <button class="chip" type="button" data-val="arc">Дуги</button>
+            <button class="chip" type="button" data-val="spiral">Спираль</button>
+        </div>
+        <div class="chip-group" data-filter="mat">
+            <span class="chip-label">Материал</span>
+            <button class="chip" type="button" data-val="inox">Нержавейка</button>
+            <button class="chip" type="button" data-val="steel">Сталь RAL</button>
+        </div>
+        <div class="cat-sort">
+            <label for="catSort">Сортировка</label>
+            <select id="catSort">
+                <option value="pop">популярные</option>
+                <option value="price-asc">цена: сначала дешевле</option>
+                <option value="price-desc">цена: сначала дороже</option>
+                <option value="cap">по вместимости</option>
+            </select>
+        </div>
+        <div class="cat-count" id="catCount"></div>
+    </div>
+</div>
+
+<!-- ======================= Сетка каталога ======================= -->
+<section class="section section-cream" style="padding-top:48px;">
+    <div class="wrap">
+        <div class="cat-grid" id="catGrid">
+            <article class="p-card" data-name="Circle 9" data-type="rings" data-mat="inox" data-cap="9" data-price="2450" data-pop="1"
+                     data-kicker="Кольцевая серия" data-desc="Флагман кольцевой серии: девять колец на несущей раме из полированной нержавеющей стали. Для входных групп магазинов и офисов." data-gallery="images/gr/veloparkovki/circle-photo-01.jpg;images/gr/veloparkovki/circle-photo-02.jpg;images/gr/veloparkovki/circle-photo-04.jpg">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/circle-photo-01.jpg" alt="Велопарковка Circle 9 — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Circle 9</h3>
+                    <div class="p-spec">9 колец · до 9 мест · полированная нержавейка</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 2 450 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Circle 7" data-type="rings" data-mat="inox" data-cap="7" data-price="2150" data-pop="2"
+                     data-kicker="Кольцевая серия" data-desc="Средний типоразмер кольцевой серии — семь колец, та же полированная нержавеющая сталь и анкерное крепление." data-gallery="images/gr/veloparkovki/circle-photo-04.jpg;images/gr/veloparkovki/circle-photo-05.jpg;images/gr/veloparkovki/circle-photo-03.jpg">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/circle-photo-04.jpg" alt="Велопарковка Circle 7 — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Circle 7</h3>
+                    <div class="p-spec">7 колец · до 7 мест · полированная нержавейка</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 2 150 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Circle 5" data-type="rings" data-mat="inox" data-cap="5" data-price="1850" data-pop="3"
+                     data-kicker="Кольцевая серия" data-desc="Компактная кольцевая парковка на пять мест — для узких тротуаров и небольших входных групп." data-gallery="images/gr/veloparkovki/circle-photo-05.jpg;images/gr/veloparkovki/circle-photo-02.jpg">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/circle-photo-05.jpg" alt="Велопарковка Circle 5 — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Circle 5</h3>
+                    <div class="p-spec">5 колец · до 5 мест · полированная нержавейка</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 1 850 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Арка 5" data-type="arc" data-mat="steel" data-cap="8" data-price="1650" data-pop="4"
+                     data-kicker="Дуговая серия" data-desc="Классические П-образные дуги с фронтальной панелью-велосипедом лазерной резки. Порошковая окраска в любой цвет RAL." data-gallery="images/gr/veloparkovki/arka-photo-01.jpg;images/gr/veloparkovki/arka-photo-02.jpg" data-dl="images/gr/veloparkovki/arka-chertezhi.pdf">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/arka-photo-01.jpg" alt="Велопарковка Арка 5 — сталь ral" loading="lazy">
+                    <span class="p-badge">Сталь RAL</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Арка 5</h3>
+                    <div class="p-spec">5 дуг · до 8 мест · сталь, окраска RAL</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 1 650 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Арка 5 INOX" data-type="arc" data-mat="inox" data-cap="8" data-price="2250" data-pop="5"
+                     data-kicker="Дуговая серия" data-desc="Дуговая схема в исполнении из нержавеющей стали — труба Ø38×1,5, масса ≈ 31 кг, не требует подкрашивания." data-gallery="images/gr/veloparkovki/arka-photo-02.jpg;images/gr/veloparkovki/arka-photo-01.jpg" data-dl="images/gr/veloparkovki/arka-chertezhi.pdf">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/arka-photo-02.jpg" alt="Велопарковка Арка 5 INOX — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Арка 5 INOX</h3>
+                    <div class="p-spec">5 дуг · до 8 мест · нержавеющая сталь</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 2 250 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Арка 3" data-type="arc" data-mat="steel" data-cap="4" data-price="1150" data-pop="6"
+                     data-kicker="Дуговая серия" data-desc="Короткая версия дуговой парковки — три дуги на четыре велосипеда, для дворов и небольших офисов." data-gallery="images/gr/veloparkovki/arka-photo-02.jpg">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/arka-photo-02.jpg" alt="Велопарковка Арка 3 — сталь ral" loading="lazy">
+                    <span class="p-badge">Сталь RAL</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Арка 3</h3>
+                    <div class="p-spec">3 дуги · до 4 мест · сталь, окраска RAL</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 1 150 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Спираль 2,5" data-type="spiral" data-mat="inox" data-cap="10" data-price="1250" data-pop="7"
+                     data-kicker="Спиральная серия" data-desc="Непрерывная спираль из нержавеющей трубы Ø25×1,5: десять мест на 2,5 метра. Крепление к плитке на химические анкеры М10." data-gallery="images/gr/veloparkovki/spiral-photo-01.jpg;images/gr/veloparkovki/spiral-photo-02.jpg" data-dl="images/gr/veloparkovki/spiral-chertezhi.pdf">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/spiral-photo-01.jpg" alt="Велопарковка Спираль 2,5 — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Спираль 2,5</h3>
+                    <div class="p-spec">виток Ø600 · до 10 мест · нержавеющая сталь</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 1 250 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Спираль 1,25" data-type="spiral" data-mat="inox" data-cap="5" data-price="950" data-pop="8"
+                     data-kicker="Спиральная серия" data-desc="Половинная длина спирали — пять мест. Самый доступный способ организовать велопарковку во дворе." data-gallery="images/gr/veloparkovki/spiral-photo-02.jpg;images/gr/veloparkovki/spiral-photo-01.jpg">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/spiral-photo-02.jpg" alt="Велопарковка Спираль 1,25 — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Спираль 1,25</h3>
+                    <div class="p-spec">виток Ø600 · до 5 мест · нержавеющая сталь</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 950 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="p-card" data-name="Спираль W" data-type="spiral" data-mat="inox" data-cap="6" data-price="1050" data-pop="9"
+                     data-kicker="Спиральная серия" data-desc="Спираль с настенным креплением торцов — для ниш и проездов, где нельзя анкероваться в плитку по всей длине." data-gallery="images/gr/veloparkovki/spiral-photo-02.jpg">
+                <div class="p-img" data-qv>
+                    <img src="images/gr/veloparkovki/spiral-photo-02.jpg" alt="Велопарковка Спираль W — нержавеющая" loading="lazy">
+                    <span class="p-badge">Нержавеющая</span>
+                    <span class="p-zoom"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
+                </div>
+                <div class="p-body">
+                    <h3 class="p-name">Спираль W</h3>
+                    <div class="p-spec">виток Ø600 · до 6 мест · настенное крепление</div>
+                    <div class="p-foot">
+                        <div class="p-price">от 1 050 руб.<small>цена в базе</small></div>
+                        <div class="p-actions">
+                            <button class="p-more" type="button" data-qv>Подробнее</button>
+                            <button class="btn btn-clay btn-sm" type="button" data-order>Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="cat-empty" id="catEmpty">
+            По этим фильтрам моделей не нашлось.<br>Сбросьте фильтры — или напишите нам, изготовим под заказ.
+        </div>
+
+        <div class="more-wrap">
+            <button class="btn btn-ghost" type="button" id="catMore">Показать ещё <span class="arr">↓</span></button>
+            <span class="more-note" id="catMoreNote"></span>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= Не нашли свою? ======================= -->
+<section class="section">
+    <div class="wrap">
+        <div class="series-cols" style="align-items:center;">
+            <div class="reveal">
+                <div class="eyebrow">Под заказ</div>
+                <h2 class="h2">Не нашли подходящую модель?</h2>
+                <p class="series-lede" style="margin-bottom:0;">
+                    Изготовим велопарковку по вашему эскизу или адаптируем любую
+                    модель каталога: другая длина, число мест, цвет по RAL, логотип
+                    лазерной резкой. Конструкторский отдел подготовит чертёж,
+                    производство займёт считанные дни.
+                </p>
+            </div>
+            <div class="reveal from-r" style="display:flex;flex-direction:column;gap:12px;">
+                <a href="#" class="btn btn-clay" data-open-form>Рассчитать стоимость <span class="arr">→</span></a>
+                <a href="tel:+375295920055" class="btn btn-ghost">+375 (29) 592-00-55</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= Quick view ======================= -->
+<div class="modal-veil" id="qvModal" role="dialog" aria-modal="true" aria-label="Карточка модели">
+    <div class="qv-card">
+        <button class="modal-close" type="button" id="qvClose" aria-label="Закрыть" style="z-index:3;">✕</button>
+        <div class="qv-media">
+            <img id="qvImg" src="" alt="">
+            <div class="qv-thumbs" id="qvThumbs"></div>
+        </div>
+        <div class="qv-body">
+            <span class="qv-kicker" id="qvKicker"></span>
+            <h3 class="qv-name" id="qvName"></h3>
+            <p class="qv-desc" id="qvDesc"></p>
+            <ul class="qv-specs" id="qvSpecs"></ul>
+            <div class="qv-price" id="qvPrice"></div>
+            <div class="qv-actions">
+                <button class="btn btn-clay" type="button" id="qvOrder">Заказать эту модель <span class="arr">→</span></button>
+                <a class="qv-dl" id="qvDl" href="#" target="_blank" rel="noopener">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M5 21h14"/></svg>
+                    Скачать чертёж (PDF)
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================= Футер ======================= -->
+<footer class="footer">
+    <div class="wrap">
+        <div class="footer-grid">
+            <div>
+                <a class="footer-logo" href="index.html"><img src="images/logo.png" alt="Aldena"></a>
+                <p class="footer-about">
+                    г. Брест, ул. Л-та Рябцева 124, каб. 38<br>
+                    Пн–Пт: 08:30–17:00, Сб–Вс: выходной<br>
+                    <a href="mailto:sale@aldena.by">sale@aldena.by</a><br>
+                    <a href="tel:+375295920055">+375 (29) 592-00-55</a>
+                </p>
+            </div>
+            <div>
+                <h4>Производство</h4>
+                <ul>
+                    <li><a href="Металлоконструкции.html">Металлоконструкции</a></li>
+                    <li><a href="Изделия%20из%20нержавеющей%20стали.html">Изделия из нержавеющей стали</a></li>
+                    <li><a href="Архитектурные%20стеклянные%20конструкции.html">Стеклянные конструкции</a></li>
+                    <li><a href="Быстровозводимые%20здания.html">Быстровозводимые здания</a></li>
+                    <li><a href="Строительство%20под%20ключ.html">Строительство под ключ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Компания</h4>
+                <ul>
+                    <li><a href="О%20компании.html">О компании</a></li>
+                    <li><a href="Сертификаты.html">Сертификаты</a></li>
+                    <li><a href="Портфолио.html">Портфолио</a></li>
+                    <li><a href="Реквизиты.html">Реквизиты</a></li>
+                    <li><a href="Карьера.html">Карьера</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Разделы</h4>
+                <ul>
+                    <li><a href="Готовые%20решения.html">Готовые решения</a></li>
+                    <li><a href="Услуги.html">Услуги</a></li>
+                    <li><a href="Производство.html">Производство</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Aldena. Использование материалов сайта только с разрешения правообладателя</span>
+            <a href="#">Разработка сайта Extrit</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ======================= Лайтбокс галереи ======================= -->
+<div class="lb-veil" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+    <button class="lb-close" type="button" id="lbClose" aria-label="Закрыть">✕</button>
+    <button class="lb-arrow lb-prev" type="button" id="lbPrev" aria-label="Предыдущее изображение">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <figure class="lb-fig">
+        <img id="lbImg" src="" alt="">
+        <figcaption class="lb-cap" id="lbCap"></figcaption>
+    </figure>
+    <button class="lb-arrow lb-next" type="button" id="lbNext" aria-label="Следующее изображение">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+</div>
+
+<!-- ======================= Модальная форма ======================= -->
+<div class="modal-veil" id="formModal" role="dialog" aria-modal="true" aria-label="Рассчитать стоимость проекта">
+    <div class="modal-card">
+        <button class="modal-close" type="button" data-close-form aria-label="Закрыть">✕</button>
+
+        <div id="formBody">
+            <h3>Рассчитать стоимость</h3>
+            <p class="sub">Оставьте свои данные — перезвоним и подготовим расчёт за 1 рабочий день.</p>
+            <form id="leadForm" action="javascript:void(0);" method="post">
+                <div class="field">
+                    <label for="f-name">Имя *</label>
+                    <input id="f-name" type="text" name="field_0" placeholder="Как к вам обращаться" required>
+                </div>
+                <div class="field">
+                    <label for="f-phone">Телефон *</label>
+                    <input id="f-phone" type="tel" name="field_2" placeholder="+375 (__) ___-__-__" required>
+                </div>
+                <div class="field">
+                    <label for="f-email">E-mail</label>
+                    <input id="f-email" type="email" name="field_1" placeholder="name@example.com">
+                </div>
+                <div class="field">
+                    <label for="f-msg">Сообщение</label>
+                    <textarea id="f-msg" name="field_4" placeholder="Какая серия интересует, адрес установки, количество…"></textarea>
+                </div>
+                <label class="agree">
+                    <input type="checkbox" required>
+                    <span>Согласие на обработку персональных данных</span>
+                </label>
+                <button class="btn btn-clay" type="submit">Отправить заявку <span class="arr">→</span></button>
+            </form>
+        </div>
+
+        <div class="form-done" id="formDone">
+            <div class="tick">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+            </div>
+            <h3>Заявка отправлена</h3>
+            <p>Спасибо! Менеджер свяжется с вами в ближайшее рабочее время.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    'use strict';
+
+    /* ---------- модальная форма ---------- */
+    var modal = document.getElementById('formModal');
+
+    function formOpen(e){ if (e) e.preventDefault(); modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function formClose(){ modal.classList.remove('open'); document.body.style.overflow = ''; }
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-open-form]'), function(el){
+        el.addEventListener('click', formOpen);
+    });
+    document.querySelector('[data-close-form]').addEventListener('click', formClose);
+    modal.addEventListener('click', function(e){ if (e.target === modal) formClose(); });
+
+    document.getElementById('leadForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        document.getElementById('formBody').style.display = 'none';
+        document.getElementById('formDone').style.display = 'block';
+    });
+
+    /* ---------- лайтбокс галереи ---------- */
+    var lb      = document.getElementById('lightbox');
+    var lbImg   = document.getElementById('lbImg');
+    var lbCap   = document.getElementById('lbCap');
+    var lbItems = Array.prototype.slice.call(
+        document.querySelectorAll('.gallery figure img, .hero-media img')
+    );
+    var lbIndex = 0;
+
+    function lbShow(i){
+        lbIndex = (i + lbItems.length) % lbItems.length;
+        var img = lbItems[lbIndex];
+        var fig = img.closest('figure');
+        var cap = fig ? fig.querySelector('figcaption') : null;
+        lbImg.src = img.src;
+        lbImg.alt = img.alt || '';
+        lbCap.textContent = cap ? cap.textContent : (img.alt || '');
+    }
+    function lbOpen(i){ lbShow(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function lbClose(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+
+    lbItems.forEach(function(img, i){
+        img.addEventListener('click', function(){ lbOpen(i); });
+    });
+    document.getElementById('lbClose').addEventListener('click', lbClose);
+    document.getElementById('lbPrev').addEventListener('click', function(){ lbShow(lbIndex - 1); });
+    document.getElementById('lbNext').addEventListener('click', function(){ lbShow(lbIndex + 1); });
+    lb.addEventListener('click', function(e){ if (e.target === lb) lbClose(); });
+
+    document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape'){ formClose(); lbClose(); }
+        if (lb.classList.contains('open')){
+            if (e.key === 'ArrowLeft')  lbShow(lbIndex - 1);
+            if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+        }
+    });
+
+    /* ---------- лёгкий параллакс рендера в hero ---------- */
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var heroMedia = document.getElementById('heroMedia');
+    if (heroMedia && !reduceMotion){
+        var heroImgEl = heroMedia.querySelector('img');
+        var heroTicking = false;
+        window.addEventListener('scroll', function(){
+            if (heroTicking) return;
+            heroTicking = true;
+            requestAnimationFrame(function(){
+                var y = window.scrollY;
+                if (y < 900){
+                    var shift = Math.min(y * 0.035, 10);
+                    heroImgEl.style.transform = 'translateY(' + shift.toFixed(1) + 'px) scale(1.06)';
+                }
+                heroTicking = false;
+            });
+        }, {passive:true});
+    }
+
+    /* ---------- мобильное меню ---------- */
+    var burger = document.getElementById('burger');
+    var header = document.getElementById('siteHeader');
+    burger.addEventListener('click', function(){
+        burger.classList.toggle('open');
+        header.classList.toggle('menu-open');
+    });
+
+    /* ---------- подменю (раскрытие на мобильном) ---------- */
+    Array.prototype.forEach.call(document.querySelectorAll('.drop-toggle'), function(btn){
+        btn.addEventListener('click', function(){
+            var item = btn.closest('.nav-item');
+            if (item) item.classList.toggle('open');
+        });
+    });
+
+    /* ---------- появление при скролле ---------- */
+    var items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window){
+        var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(en){
+                if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+            });
+        }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+        items.forEach(function(el){ io.observe(el); });
+    } else {
+        items.forEach(function(el){ el.classList.add('in'); });
+    }
+})();
+</script>
+
+
+<script>
+(function(){
+    'use strict';
+    /* ================== каталог: фильтры, сортировка, партии ================== */
+    var grid   = document.getElementById('catGrid');
+    var cards  = Array.prototype.slice.call(grid.querySelectorAll('.p-card'));
+    var qInput = document.getElementById('catQ');
+    var sortEl = document.getElementById('catSort');
+    var countEl= document.getElementById('catCount');
+    var moreBtn= document.getElementById('catMore');
+    var moreNote=document.getElementById('catMoreNote');
+    var emptyEl= document.getElementById('catEmpty');
+    var BATCH  = 6;
+    var shown  = BATCH;
+    var state  = {type:{}, mat:{}, q:''};
+
+    Array.prototype.forEach.call(document.querySelectorAll('.chip-group'), function(g){
+        var key = g.getAttribute('data-filter');
+        Array.prototype.forEach.call(g.querySelectorAll('.chip'), function(chip){
+            chip.addEventListener('click', function(){
+                var v = chip.getAttribute('data-val');
+                if (state[key][v]) { delete state[key][v]; chip.classList.remove('on'); }
+                else { state[key][v] = true; chip.classList.add('on'); }
+                shown = BATCH; apply();
+            });
+        });
+    });
+    qInput.addEventListener('input', function(){ state.q = qInput.value.trim().toLowerCase(); shown = BATCH; apply(); });
+    sortEl.addEventListener('change', function(){ shown = BATCH; apply(); });
+    moreBtn.addEventListener('click', function(){ shown += BATCH; apply(); });
+
+    function anyOn(o){ for (var k in o) return true; return false; }
+
+    function apply(){
+        var list = cards.filter(function(c){
+            if (anyOn(state.type) && !state.type[c.getAttribute('data-type')]) return false;
+            if (anyOn(state.mat)  && !state.mat[c.getAttribute('data-mat')])  return false;
+            if (state.q && c.getAttribute('data-name').toLowerCase().indexOf(state.q) === -1) return false;
+            return true;
+        });
+        var mode = sortEl.value;
+        list.sort(function(a,b){
+            var pa = +a.getAttribute('data-price'), pb = +b.getAttribute('data-price');
+            if (mode === 'price-asc')  return pa - pb;
+            if (mode === 'price-desc') return pb - pa;
+            if (mode === 'cap') return +b.getAttribute('data-cap') - +a.getAttribute('data-cap');
+            return +a.getAttribute('data-pop') - +b.getAttribute('data-pop');
+        });
+        cards.forEach(function(c){ c.classList.add('hidden'); });
+        list.forEach(function(c, i){
+            grid.appendChild(c);
+            if (i < shown) c.classList.remove('hidden');
+        });
+        var vis = Math.min(shown, list.length);
+        countEl.textContent = list.length
+            ? 'Показано ' + vis + ' из ' + list.length + ' моделей'
+            : 'Моделей не найдено';
+        emptyEl.style.display = list.length ? 'none' : 'block';
+        moreBtn.style.display = list.length > shown ? '' : 'none';
+        moreNote.textContent  = list.length > shown ? ('Ещё ' + (list.length - vis)) : '';
+    }
+    apply();
+
+    /* ================== quick view ================== */
+    var qv     = document.getElementById('qvModal');
+    var qvImg  = document.getElementById('qvImg');
+    var qvThumbs = document.getElementById('qvThumbs');
+    var current = null;
+
+    function openQV(card){
+        current = card;
+        document.getElementById('qvKicker').textContent = card.getAttribute('data-kicker');
+        document.getElementById('qvName').textContent   = card.getAttribute('data-name');
+        document.getElementById('qvDesc').textContent   = card.getAttribute('data-desc');
+        var specs = document.getElementById('qvSpecs');
+        specs.innerHTML = '';
+        [['Вместимость', 'до ' + card.getAttribute('data-cap') + ' велосипедов'],
+         ['Характеристики', card.querySelector('.p-spec').textContent],
+         ['Крепление', 'анкеры к плитке или бетону'],
+         ['Срок', 'уточняйте у отдела продаж']].forEach(function(row){
+            var li = document.createElement('li');
+            var s1 = document.createElement('span'); s1.textContent = row[0];
+            var s2 = document.createElement('span'); s2.textContent = row[1];
+            li.appendChild(s1); li.appendChild(s2); specs.appendChild(li);
+        });
+        var price = (+card.getAttribute('data-price')).toLocaleString('ru-RU');
+        document.getElementById('qvPrice').innerHTML = 'от ' + price + ' руб.<small>базовое исполнение</small>';
+        var dl = document.getElementById('qvDl');
+        if (card.getAttribute('data-dl')){ dl.href = card.getAttribute('data-dl'); dl.style.display = 'inline-flex'; }
+        else dl.style.display = 'none';
+
+        var gallery = card.getAttribute('data-gallery').split(';');
+        qvThumbs.innerHTML = '';
+        qvImg.src = gallery[0];
+        qvImg.alt = 'Велопарковка ' + card.getAttribute('data-name');
+        if (gallery.length > 1){
+            gallery.forEach(function(src, i){
+                var b = document.createElement('button');
+                b.type = 'button'; if (!i) b.className = 'on';
+                var im = document.createElement('img'); im.src = src; im.alt = '';
+                b.appendChild(im);
+                b.addEventListener('click', function(){
+                    qvImg.src = src;
+                    Array.prototype.forEach.call(qvThumbs.children, function(x){ x.classList.remove('on'); });
+                    b.classList.add('on');
+                });
+                qvThumbs.appendChild(b);
+            });
+        }
+        qv.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeQV(){ qv.classList.remove('open'); document.body.style.overflow = ''; }
+
+    grid.addEventListener('click', function(e){
+        var t = e.target.closest ? e.target : null;
+        if (!t) return;
+        var orderBtn = e.target.closest('[data-order]');
+        var card = e.target.closest('.p-card');
+        if (!card) return;
+        if (orderBtn){ orderModel(card); return; }
+        if (e.target.closest('[data-qv]')) openQV(card);
+    });
+    document.getElementById('qvClose').addEventListener('click', closeQV);
+    qv.addEventListener('click', function(e){ if (e.target === qv) closeQV(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeQV(); });
+
+    /* заказ: открываем форму с подставленной моделью */
+    function orderModel(card){
+        closeQV();
+        var msg = document.getElementById('f-msg');
+        if (msg) msg.value = 'Интересует велопарковка «' + card.getAttribute('data-name') + '» — ' +
+                             card.querySelector('.p-spec').textContent + '. Прошу рассчитать стоимость.';
+        var modal = document.getElementById('formModal');
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    document.getElementById('qvOrder').addEventListener('click', function(){
+        if (current) orderModel(current);
+    });
+})();
+</script>
+</body>
+</html>
