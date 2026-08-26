@@ -403,6 +403,32 @@
     .dl small{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
 
     /* галерея */
+    /* плашка активного заказчика (переход из блока «Нам доверяют») */
+    .client-bar{
+        display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;
+        padding-bottom:14px;margin-top:-4px;
+    }
+    .client-tag{
+        display:inline-flex;align-items:center;gap:10px;
+        background:var(--clay-wash);color:var(--ink);
+        border-radius:999px;padding:7px 8px 7px 16px;
+        font-size:.92rem;
+    }
+    .client-tag b{font-weight:600;}
+    .client-tag button{
+        border:0;cursor:pointer;background:rgba(25,25,23,.08);color:var(--ink);
+        width:22px;height:22px;border-radius:50%;line-height:1;font-size:.78rem;
+        display:inline-flex;align-items:center;justify-content:center;
+        transition:background .2s ease;
+    }
+    .client-tag button:hover{background:var(--clay);color:#fff;}
+    .client-hint{color:var(--muted);font-size:.88rem;}
+    .cases-empty{
+        grid-column:1/-1;padding:44px 26px;text-align:center;
+        border:1px dashed var(--line);border-radius:var(--radius);
+        color:var(--muted);font-size:.96rem;line-height:1.6;
+    }
+
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
     @media(max-width:900px){.gallery{grid-template-columns:1fr 1fr;}}
     @media(max-width:560px){.gallery{grid-template-columns:1fr;}}
@@ -794,12 +820,12 @@
             <i class="nav-gap" aria-hidden="true"></i>
             <div class="nav-item">
                 <div class="nav-row">
-                    <a href="О%20компании.html">О компании</a>
+                    <a href="О%20компании.html" class="is-active">О компании</a>
                     <button class="drop-toggle" type="button" aria-label="Подменю «О компании»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
                 </div>
                 <div class="drop">
                     <a href="Сертификаты.html">Сертификаты</a>
-                    <a href="#">Отзывы</a>
+                    <a href="Отзывы.html">Отзывы</a>
                     <a href="Реквизиты.html">Реквизиты</a>
                     <a href="Портфолио.html">Портфолио</a>
                     <a href="#">Новости</a>
@@ -821,7 +847,7 @@
             </div>
             <div class="nav-item">
                 <div class="nav-row">
-                    <a href="Готовые%20решения.html" class="is-active">Готовые решения</a>
+                    <a href="Готовые%20решения.html">Готовые решения</a>
                     <button class="drop-toggle" type="button" aria-label="Подменю «Готовые решения»"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
                 </div>
                 <div class="drop drop-wide">
@@ -917,6 +943,13 @@
         </div>
         <div class="cat-count" id="caseCount"></div>
     </div>
+    <div class="wrap client-bar" id="clientBar" hidden>
+        <span class="client-tag">
+            Заказчик: <b id="clientName"></b>
+            <button type="button" id="clientReset" aria-label="Показать все работы">✕</button>
+        </span>
+        <span class="client-hint">Показаны работы, выполненные для этого предприятия.</span>
+    </div>
 </div>
 
 <!-- ======================= Сетка кейсов ======================= -->
@@ -968,20 +1001,20 @@
                 <span class="p-badge">Металлоконструкции</span>
                 <figcaption>Монтаж металлоконструкций краном</figcaption>
             </figure>
-            <figure class="reveal" data-cat="nerzhaveyka">
-                <img src="images/news3.jpg" alt="Стеллаж собственного производства" loading="lazy">
+            <figure class="reveal" data-cat="nerzhaveyka" data-client="ekzon">
+                <img src="images/news3.jpg" alt="Стеллажи из нержавеющей стали для ОАО «Экзон»" loading="lazy">
                 <span class="p-badge">Нержавеющая сталь</span>
-                <figcaption>Стеллаж собственного производства</figcaption>
+                <figcaption>Стеллажи из нержавеющей стали AISI 304 — ОАО «Экзон»</figcaption>
             </figure>
             <figure class="reveal" data-cat="metallokonstruktsii">
                 <img src="images/pr7.png" alt="Строительная площадка" loading="lazy">
                 <span class="p-badge">Металлоконструкции</span>
                 <figcaption>Строительная площадка</figcaption>
             </figure>
-            <figure class="reveal" data-cat="gotovye">
-                <img src="images/news1.jpg" alt="Остановочный павильон — готовый объект" loading="lazy">
+            <figure class="reveal" data-cat="gotovye" data-client="kondor">
+                <img src="images/news1.jpg" alt="Остановочный павильон в Бресте для ИООО «Кондор»" loading="lazy">
                 <span class="p-badge">Готовые решения</span>
-                <figcaption>Остановочный павильон — готовый объект</figcaption>
+                <figcaption>Остановочный павильон в СЭЗ «Брест» — ИООО «Кондор»</figcaption>
             </figure>
             <figure class="reveal" data-cat="metallokonstruktsii">
                 <img src="images/pr6.png" alt="Быстровозводимое здание" loading="lazy">
@@ -1237,26 +1270,101 @@
 <script>
 (function(){
     'use strict';
-    var chips = document.querySelectorAll('#caseChips .chip');
-    var figs  = document.querySelectorAll('#caseGrid figure');
-    var count = document.getElementById('caseCount');
-    function apply(val){
+
+    /* ================================================================
+       Названия заказчиков для плашки. Slug должен совпадать с
+       data-client у <figure> и с ?client=<slug> в ссылке на главной.
+       ================================================================ */
+    var CLIENTS = {
+        'ekzon':  'ОАО «Экзон»',
+        'kondor': 'ИООО «Кондор»'
+    };
+
+    var chips  = document.querySelectorAll('#caseChips .chip');
+    var grid   = document.getElementById('caseGrid');
+    var figs   = document.querySelectorAll('#caseGrid figure');
+    var count  = document.getElementById('caseCount');
+    var bar    = document.getElementById('clientBar');
+    var nameEl = document.getElementById('clientName');
+    var reset  = document.getElementById('clientReset');
+
+    var client = '';   /* активный заказчик */
+    var cat    = 'all';/* активная категория */
+
+    var empty = document.createElement('div');
+    empty.className = 'cases-empty';
+    empty.hidden = true;
+    grid.appendChild(empty);
+
+    function apply(){
         var n = 0;
         Array.prototype.forEach.call(figs, function(f){
-            var show = (val === 'all') || (f.getAttribute('data-cat') === val);
+            var okCat = (cat === 'all') || (f.getAttribute('data-cat') === cat);
+            var okCli = !client || (f.getAttribute('data-client') === client);
+            var show  = okCat && okCli;
             f.style.display = show ? '' : 'none';
             if (show) n++;
         });
         count.textContent = 'Показано работ: ' + n;
+
+        if (client){
+            bar.hidden = false;
+            nameEl.textContent = CLIENTS[client] || client;
+        } else {
+            bar.hidden = true;
+        }
+
+        if (n === 0){
+            empty.hidden = false;
+            empty.textContent = client
+                ? 'По этому заказчику работы в портфолио пока не опубликованы. Мы дополняем раздел — напишите нам, и мы пришлём фото объектов.'
+                : 'В этой категории работ пока нет.';
+        } else {
+            empty.hidden = true;
+        }
     }
+
+    function setClient(slug){
+        client = slug || '';
+        /* при смене заказчика категорию сбрасываем — иначе легко получить пустой экран */
+        cat = 'all';
+        Array.prototype.forEach.call(chips, function(c){
+            c.classList.toggle('on', c.getAttribute('data-val') === 'all');
+        });
+        apply();
+    }
+
     Array.prototype.forEach.call(chips, function(chip){
         chip.addEventListener('click', function(){
             Array.prototype.forEach.call(chips, function(c){ c.classList.remove('on'); });
             chip.classList.add('on');
-            apply(chip.getAttribute('data-val'));
+            cat = chip.getAttribute('data-val');
+            /* выбор категории снимает фильтр по заказчику */
+            client = '';
+            dropParam();
+            apply();
         });
     });
-    apply('all');
+
+    reset.addEventListener('click', function(){
+        setClient('');
+        dropParam();
+    });
+
+    function dropParam(){
+        if (window.history && history.replaceState && /[?&]client=/.test(location.search)){
+            history.replaceState(null, '', location.pathname + location.hash);
+        }
+    }
+
+    /* ?client=<slug> из блока «Нам доверяют» на главной */
+    var m = /[?&]client=([^&#]+)/.exec(location.search);
+    if (m){
+        var slug = decodeURIComponent(m[1]).toLowerCase().replace(/[^a-z0-9_-]/g, '');
+        /* неизвестный slug просто игнорируем — показываем все работы */
+        if (slug && CLIENTS.hasOwnProperty(slug)){ client = slug; }
+    }
+    apply();
 })();
 </script>
 </body>

@@ -110,10 +110,16 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
     .reviewInfo { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1 1 auto; }
     .reviewCompany { font-size: 18px; font-weight: 700; color: #1d2428; line-height: 1.3; }
     .reviewDate { font-weight: 500; color: #9aa1a8; font-size: 14px; }
+    .reviewObject {
+        margin-top: 10px; color: #1d2428; font-size: 14px; line-height: 1.5;
+        padding-left: 12px; border-left: 2px solid #f26522;
+    }
     .reviewText {
-        margin-top: 10px; color: #5a636b; font-size: 15px; line-height: 1.55; flex: 1 1 auto;
+        margin-top: 12px; color: #5a636b; font-size: 15px; line-height: 1.55; flex: 1 1 auto;
+        font-style: italic;
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
     }
+    .reviewSigner { margin-top: 10px; color: #9aa1a8; font-size: 13px; line-height: 1.45; }
     .reviewMore {
         margin-top: 16px; display: inline-flex; align-items: center; gap: 6px;
         color: #f26522; font-weight: 600; font-size: 15px;
@@ -255,7 +261,7 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
     
 
 
-    <p class="reviewsLead">Нам доверяют предприятия Беларуси. Ниже — официальные благодарственные письма наших заказчиков. Нажмите на карточку, чтобы открыть полный скан письма.</p>
+    <p class="reviewsLead">Нам доверяют предприятия Беларуси. Ниже — официальные благодарственные письма заказчиков: с датой, исходящим номером, подписью и печатью. Нажмите на карточку, чтобы открыть письмо целиком (PDF).</p>
 
     <div class="row text-center align-items-stretch justify-content-center reviewsRow" id="reviewsGrid">
         <!-- Карточки отзывов добавляются автоматически из массива reviewsData (скрипт ниже) -->
@@ -265,25 +271,68 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
 
     <script>
     /* =====================================================================
-       «Бэкенд» страницы отзывов (данные).
+       Данные страницы отзывов.
        Чтобы добавить новый отзыв:
-         1) положите скан письма в папку  images/otzyvy/  (jpg или png);
-         2) допишите объект в массив reviewsData ниже.
+         1) положите PDF письма в  images/otzyvy/  (имя вида otzyv-<slug>.pdf);
+         2) сделайте превью первой страницы в images/otzyvy/preview/<slug>.jpg
+            (ширина ~720px, JPEG);
+         3) допишите объект в массив reviewsData ниже.
+
+       ВАЖНО: перед публикацией проверьте нижний колонтитул скана — в письмах
+       часто стоит строка исполнителя с личным мобильным телефоном. Такие строки
+       затираются, оригиналы писем лежат вне сайта: Trash/otzyvy-originals/.
+
        Поля объекта:
          company — название компании-заказчика (обязательно)
          tag     — вид выполненных работ (шильдик на карточке)
-         quote   — короткая цитата из письма (по желанию)
-         scan    — путь к полному скану письма (открывается по клику)
-         thumb   — превью для карточки (по желанию; если нет — берётся scan)
-         date    — год/дата (по желанию)
+         object  — что именно делали, одной строкой
+         quote   — цитата ИЗ ПИСЬМА, дословно, без правок и приукрашивания
+         signer  — должность и фамилия подписавшего
+         date    — дата письма и исходящий номер
+         scan    — путь к PDF письма (открывается в новой вкладке)
+         thumb   — превью для карточки
        ===================================================================== */
     var reviewsData = [
-        { company: 'ОАО «Савушкин продукт»',  tag: 'Металлоконструкции',     date: '2024', quote: 'Все работы выполнены качественно и точно в срок. Рекомендуем как надёжного подрядчика.', scan: '../images/otzyvy/otzyv-1.jpg' },
-        { company: 'СООО «Белинвестторг»',     tag: 'Ограждения',             date: '2024', quote: 'Благодарим за профессиональный подход и высокое качество ограждающих конструкций.',     scan: '../images/otzyvy/otzyv-2.jpg' },
-        { company: 'ОАО «Брестгазоаппарат»',   tag: 'Лестницы и площадки',    date: '2023', quote: 'Конструкции смонтированы аккуратно, с соблюдением всех технических требований.',         scan: '../images/otzyvy/otzyv-3.jpg' },
-        { company: 'УП «Брестжилстрой»',       tag: 'Навесы и козырьки',      date: '2023', quote: 'Отдельно отмечаем оперативность и внимательное отношение к пожеланиям заказчика.',        scan: '../images/otzyvy/otzyv-4.jpg' },
-        { company: 'ОАО «Гефест»',             tag: 'Стеклянные конструкции', date: '2023', quote: 'Сложный объект сдан в срок. Качество монтажа — на высоком уровне.',                       scan: '../images/otzyvy/otzyv-5.jpg' },
-        { company: 'ООО «СтройКомплект»',      tag: 'Монтажные работы',       date: '2022', quote: 'Команда профессионалов. Будем рады продолжить сотрудничество.',                          scan: '../images/otzyvy/otzyv-6.jpg' }
+        {
+            company: 'ОАО «Савушкин продукт»',
+            tag:     'Металлоконструкции',
+            object:  'Работы на объектах предприятия в Бресте, Барановичах, Берёзе и Пинске',
+            quote:   'Готово рекомендовать ООО «АльденаГрупп» в качестве опытного и надежного подрядчика и поставщика металлоконструкций на строительном рынке',
+            signer:  'Директор по строительству С. В. Санников',
+            date:    '18.09.2025, № 424-РСУ',
+            scan:    '../images/otzyvy/otzyv-savushkin.pdf',
+            thumb:   '../images/otzyvy/preview/savushkin.jpg'
+        },
+        {
+            company: 'ООО «Санта Импэкс» (холдинг SANTA)',
+            tag:     'Нержавеющая сталь',
+            object:  'Изготовление и монтаж технологических площадок из нержавеющей стали, 9,67 т — производственный корпус, рыбный цех № 3, Брест',
+            quote:   'Ответственный и квалифицированный подрядчик, выполняющий работы с точным соблюдением технологий и сроков производства, норм ТНПА и требований техники безопасности',
+            signer:  'Инженер по техническому надзору И. М. Василюк',
+            date:    '30.04.2026, № 1644',
+            scan:    '../images/otzyvy/otzyv-santa.pdf',
+            thumb:   '../images/otzyvy/preview/santa.jpg'
+        },
+        {
+            company: 'РУП «Белпочта», Брестский филиал',
+            tag:     'Строительно-монтажные работы',
+            object:  'СМР на объектах филиала в Бресте (головной филиал) и Барановичах (участок обработки и сортировки почты)',
+            quote:   'Общество зарекомендовало себя как надежный деловой партнер, выполнив все договорные обязательства в установленные договором сроки',
+            signer:  'Заместитель директора филиала по техническим вопросам Н. С. Якубовский',
+            date:    '22.12.2022, № 361',
+            scan:    '../images/otzyvy/otzyv-belpochta.pdf',
+            thumb:   '../images/otzyvy/preview/belpochta.jpg'
+        },
+        {
+            company: 'ООО «СтройБрест»',
+            tag:     'Металлоконструкции и теплицы',
+            object:  'Изготовление и монтаж металлических конструкций, в том числе промышленных теплиц',
+            quote:   'Квалифицированный подрядчик, который ставит интересы Заказчика на первое место',
+            signer:  'Директор С. В. Шубович',
+            date:    'Отзыв о деловой репутации',
+            scan:    '../images/otzyvy/otzyv-stroybrest.pdf',
+            thumb:   '../images/otzyvy/preview/stroybrest.jpg'
+        }
     ];
 
     (function () {
@@ -309,7 +358,7 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
             var caption = escapeHtml(r.company + (r.tag ? ' — ' + r.tag : '') + (r.date ? ' (' + r.date + ')' : ''));
             return '' +
             '<div class="col-12 col-md-6 col-xl-4 reviewItem">' +
-              '<a href="' + encodeURI(r.scan) + '" class="reviewBlock" data-caption="' + caption + '">' +
+              '<a href="' + encodeURI(r.scan) + '" class="reviewBlock" target="_blank" rel="noopener" data-caption="' + caption + '">' +
                 '<div class="reviewThumb">' +
                   '<span class="reviewPlaceholder">' +
                     '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4"/><path d="M8 12h8M8 16h6"/></svg>' +
@@ -321,8 +370,10 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
                 '</div>' +
                 '<div class="reviewInfo">' +
                   '<div class="reviewCompany">' + escapeHtml(r.company) + (r.date ? ' <span class="reviewDate">· ' + escapeHtml(r.date) + '</span>' : '') + '</div>' +
+                  (r.object ? '<div class="reviewObject">' + escapeHtml(r.object) + '</div>' : '') +
                   (r.quote ? '<div class="reviewText">«' + escapeHtml(r.quote) + '»</div>' : '') +
-                  '<span class="reviewMore">Читать письмо <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>' +
+                  (r.signer ? '<div class="reviewSigner">' + escapeHtml(r.signer) + '</div>' : '') +
+                  '<span class="reviewMore">Открыть письмо (PDF) <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>' +
                 '</div>' +
               '</a>' +
             '</div>';
@@ -560,14 +611,8 @@ a.thumbnail {display: inline-block; zoom: 1; *display: inline;}
     <script>
         jQuery(document).ready(function() {
                         jQuery('.fancybox').fancybox();
-                        // Галерея отзывов: открываем скан письма в lightbox
-                        if (jQuery.fn.fancybox) {
-                            jQuery('#reviewsGrid .reviewBlock').fancybox({
-                                loop: true,
-                                protect: true,
-                                buttons: ['zoom', 'slideShow', 'fullScreen', 'close']
-                            });
-                        }
+                        // Письма — это PDF, lightbox их не показывает:
+                        // карточка открывает файл в новой вкладке (target="_blank").
         });
     </script>
 

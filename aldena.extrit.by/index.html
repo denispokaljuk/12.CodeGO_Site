@@ -112,7 +112,8 @@
     @media(prefers-reduced-motion:reduce){
         html{scroll-behavior:auto;}
         .reveal{opacity:1;transform:none;transition:none;}
-        .marquee-track{animation:none!important;}
+        /* карточки заказчиков раскрываются мгновенно, без анимации роста */
+        .pc__pop,.pc__plate,.pc__plate img,.pc__photo,.pc__info,.pc__name,.pc__word{transition:none!important;}
     }
 
     /* ============================================================
@@ -417,36 +418,170 @@
     .cert:hover span{color:var(--clay-deep);}
 
     /* ============================================================
-       Партнёры — бегущая лента
+       Заказчики — витрина доказательств
+       ------------------------------------------------------------
+       Карточка с логотипом при наведении вырастает до 2×2 клеток
+       поверх сетки (сама сетка не смещается): плашка с логотипом
+       уезжает в левый верхний угол, под ней проявляется фото объекта.
+       Раскрываются только карточки .pc--case — те, по которым есть
+       реальный объект с фото. Остальные (.pc--plain) — спокойные логотипы.
        ============================================================ */
-    .partners{padding:72px 0;overflow:hidden;}
-    .partners .section-head{margin-bottom:40px;}
-    .marquee{
-        position:relative;overflow:hidden;
-        -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-        mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    .partners{padding:76px 0;}
+    .partners .section-head{margin-bottom:24px;}
+
+    /* строка проверяемых фактов */
+    .trust-facts{
+        display:flex;flex-wrap:wrap;gap:12px 34px;align-items:baseline;
+        font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;
+        text-transform:uppercase;color:var(--muted);
+        border-top:1px solid var(--line);padding-top:18px;margin-bottom:32px;
     }
-    .marquee-track{
-        display:flex;gap:16px;width:max-content;
-        animation:marquee 48s linear infinite;
+    .trust-facts b{color:var(--ink);font-weight:600;}
+    .trust-facts a{color:var(--muted);border-bottom:1px solid var(--line);}
+    .trust-facts a:hover{color:var(--clay-deep);border-bottom-color:var(--clay);}
+
+    .clients{
+        --pg:14px;
+        display:grid;grid-template-columns:repeat(4,1fr);gap:var(--pg);
     }
-    .marquee:hover .marquee-track{animation-play-state:paused;}
-    @keyframes marquee{
-        from{transform:translateX(0);}
-        to{transform:translateX(-50%);}
+    .pc{
+        position:relative;aspect-ratio:16/11;display:block;
+        color:inherit;text-decoration:none;
     }
-    .partner{
-        flex:0 0 auto;width:170px;height:92px;
-        background:var(--paper);border:1px solid var(--line);border-radius:12px;
-        display:flex;align-items:center;justify-content:center;
-        padding:16px 22px;
+    .pc:hover,.pc:focus-within{z-index:20;}
+    .pc__pop{
+        position:absolute;top:0;left:0;width:100%;height:100%;
+        background:var(--paper);border:1px solid var(--line);
+        border-radius:var(--radius);overflow:hidden;
+        transition:width .42s cubic-bezier(.2,.75,.3,1),
+                   height .42s cubic-bezier(.2,.75,.3,1),
+                   box-shadow .42s ease,border-color .25s ease;
     }
-    .partner img{
-        max-height:56px;width:auto;object-fit:contain;
-        filter:grayscale(1);opacity:.75;
-        transition:filter .2s ease,opacity .2s ease;
+    /* белая плашка с логотипом */
+    .pc__plate{
+        position:absolute;top:12px;left:12px;right:12px;bottom:32px;z-index:3;
+        background:#fff;border:1px solid var(--line);border-radius:10px;
+        display:flex;align-items:center;justify-content:center;padding:14px 16px;
+        transition:top .42s cubic-bezier(.2,.75,.3,1),left .42s cubic-bezier(.2,.75,.3,1),
+                   right .42s cubic-bezier(.2,.75,.3,1),bottom .42s cubic-bezier(.2,.75,.3,1),
+                   padding .42s ease,box-shadow .42s ease;
     }
-    .partner:hover img{filter:none;opacity:1;}
+    /* логотипы обрезаны по «чернилам» (images/partners/trim/), поэтому один
+       размер работает для всех; --lh/--lw — точечная подстройка на карточке */
+    .pc__plate img{
+        max-height:min(var(--lh,44px),100%);max-width:min(var(--lw,156px),100%);
+        width:auto;height:auto;object-fit:contain;
+        transition:max-height .42s ease,max-width .42s ease;
+    }
+    /* запасной вариант, когда файла логотипа нет */
+    .pc__word{
+        font-family:var(--serif);font-size:1.28rem;line-height:1.2;
+        color:var(--ink);text-align:center;transition:font-size .42s ease;
+    }
+    /* нижняя строка свёрнутой карточки */
+    .pc__name{
+        position:absolute;left:14px;right:14px;bottom:9px;z-index:3;
+        display:flex;align-items:center;justify-content:space-between;gap:8px;
+        font-family:var(--mono);font-size:.69rem;letter-spacing:.04em;
+        text-transform:uppercase;color:var(--muted);
+        transition:opacity .25s ease;
+    }
+    .pc__name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .pc__name .ev{color:var(--clay);display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;}
+    .pc__name .ev::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--clay);}
+    /* фото объекта и полупрозрачная подложка */
+    .pc__photo{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .42s ease;}
+    .pc__photo img{width:100%;height:100%;object-fit:cover;display:block;}
+    .pc__photo::after{
+        content:"";position:absolute;inset:0;
+        background:linear-gradient(to top,
+            rgba(25,25,23,.95) 0%,rgba(25,25,23,.78) 32%,
+            rgba(25,25,23,.30) 64%,rgba(25,25,23,.08) 100%);
+    }
+    .pc__info{
+        position:absolute;left:20px;right:20px;bottom:18px;z-index:4;
+        opacity:0;transform:translateY(10px);pointer-events:none;
+        transition:opacity .3s ease .14s,transform .3s ease .14s;
+    }
+    .pc__info .k{
+        font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;
+        text-transform:uppercase;color:#E8C6B4;
+    }
+    .pc__info h3{font-family:var(--serif);font-size:1.3rem;line-height:1.25;color:#fff;margin:7px 0 8px;}
+    .pc__info p{font-size:.88rem;line-height:1.55;color:rgba(255,255,255,.8);margin-bottom:12px;}
+    .pc__info .go{
+        display:inline-flex;align-items:center;gap:8px;
+        font-family:var(--sans);font-weight:500;font-size:.92rem;color:#fff;
+    }
+    .pc__info .go .arr{transition:transform .25s ease;}
+
+    /* —— раскрытие карточки с объектом —— */
+    .pc--case:hover .pc__pop,.pc--case:focus-within .pc__pop{
+        width:calc(200% + var(--pg));height:calc(200% + var(--pg));
+        border-color:transparent;box-shadow:0 26px 64px rgba(25,25,23,.30);
+    }
+    .pc--case:hover .pc__plate,.pc--case:focus-within .pc__plate{
+        top:16px;left:16px;right:calc(100% - 134px);bottom:calc(100% - 82px);
+        padding:8px 10px;box-shadow:0 8px 22px rgba(25,25,23,.28);
+    }
+    .pc--case:hover .pc__plate img,.pc--case:focus-within .pc__plate img{
+        max-height:calc(var(--lh,44px) * .62);max-width:calc(var(--lw,156px) * .62);
+    }
+    .pc--case:hover .pc__word,.pc--case:focus-within .pc__word{font-size:.86rem;}
+    .pc--case:hover .pc__photo,.pc--case:focus-within .pc__photo{opacity:1;}
+    .pc--case:hover .pc__name,.pc--case:focus-within .pc__name{opacity:0;}
+    .pc--case:hover .pc__info,.pc--case:focus-within .pc__info{opacity:1;transform:none;}
+    .pc--case:hover .pc__info .go .arr{transform:translateX(4px);}
+    .pc--case:focus-visible .pc__pop{outline:2px solid var(--clay);outline-offset:3px;}
+
+    /* направление роста: последний столбец — влево, нижний ряд — вверх */
+    .clients .pc:nth-child(4n) .pc__pop{left:auto;right:0;}
+    .clients .pc:nth-child(n+5) .pc__pop{top:auto;bottom:0;}
+
+    /* карточки без объекта */
+    .pc--plain .pc__pop{transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease;}
+    .pc--plain:hover .pc__pop{border-color:var(--ink);box-shadow:0 10px 24px rgba(25,25,23,.09);transform:translateY(-2px);}
+
+    .clients-more{
+        margin-top:28px;padding-top:20px;border-top:1px solid var(--line);
+        display:flex;flex-wrap:wrap;gap:12px 30px;align-items:baseline;justify-content:space-between;
+    }
+    .clients-more p{color:var(--muted);font-size:.94rem;line-height:1.75;max-width:76ch;}
+    .clients-more p b{color:var(--ink-soft);font-weight:500;}
+    .clients-more a{font-weight:500;white-space:nowrap;}
+
+    @media(max-width:1024px){
+        .clients{grid-template-columns:repeat(3,1fr);}
+        .clients .pc:nth-child(4n) .pc__pop{left:0;right:auto;}
+        .clients .pc:nth-child(3n) .pc__pop{left:auto;right:0;}
+        .clients .pc:nth-child(n+5) .pc__pop{top:0;bottom:auto;}
+        .clients .pc:nth-child(n+7) .pc__pop{top:auto;bottom:0;}
+    }
+    @media(max-width:760px){
+        .clients{grid-template-columns:repeat(2,1fr);}
+        /* на узком экране hover нет — карточка с объектом сразу раскрыта */
+        .pc--case{grid-column:1/-1;aspect-ratio:16/10;}
+        .pc--case .pc__pop{width:100%;height:100%;border-color:var(--line);box-shadow:none;}
+        .pc--case .pc__photo{opacity:1;}
+        .pc--case .pc__info{opacity:1;transform:none;}
+        .pc--case .pc__name{opacity:0;}
+        .pc--case .pc__plate{
+            top:14px;left:14px;right:auto;bottom:auto;
+            width:104px;height:58px;padding:8px 10px;
+        }
+        /* на узком экране подробности не помещаются рядом с логотипом —
+           оставляем фото, название объекта и переход, детали ждут в портфолио */
+        .pc--case .pc__info p{display:none;}
+        .pc__info{left:16px;right:16px;bottom:16px;}
+        .pc--case .pc__plate img{max-height:calc(var(--lh,44px) * .62);max-width:calc(var(--lw,156px) * .62);}
+        .pc--case .pc__word{font-size:.86rem;}
+        .pc__info h3{font-size:1.18rem;}
+    }
+    @media(max-width:420px){
+        .pc__plate{padding:10px;}
+        .pc__name{font-size:.62rem;}
+        .pc__name .ev::before{width:5px;height:5px;}
+    }
 
     /* ============================================================
        Новости
@@ -592,7 +727,7 @@
                 </div>
                 <div class="drop">
                     <a href="Сертификаты.html">Сертификаты</a>
-                    <a href="#">Отзывы</a>
+                    <a href="Отзывы.html">Отзывы</a>
                     <a href="Реквизиты.html">Реквизиты</a>
                     <a href="Портфолио.html">Портфолио</a>
                     <a href="Производственные%20мощности.html">Производственные мощности</a>
@@ -864,37 +999,132 @@
     </div>
 </section>
 
-<!-- ======================= Партнёры ======================= -->
+<!-- ======================= Заказчики ======================= -->
+<!--
+    КАК ДОБАВИТЬ ЗАКАЗЧИКА С ОБЪЕКТОМ
+    1) положите фото объекта в images/  (горизонтальное, от 1200px по ширине);
+    2) положите логотип в images/partners/;
+    3) скопируйте карточку <a class="pc pc--case"> и подставьте свои данные;
+    4) в Портфолио.html проставьте нужным работам data-client="<slug>" —
+       тем же slug, что стоит в ссылке ?client=<slug>.
+    Карточка без реального объекта остаётся <div class="pc pc--plain"> —
+    она не раскрывается и никуда не ведёт. Не подставляйте в pc--case
+    произвольное фото из галереи: подпись под чужим логотипом убивает доверие.
+-->
 <section class="partners section-cream" id="partners">
     <div class="wrap">
         <div class="section-head reveal">
             <div>
-                <div class="eyebrow">Наши партнёры</div>
+                <div class="eyebrow">Заказчики</div>
                 <h2 class="h2">Нам доверяют</h2>
             </div>
+            <p class="sub">
+                Предприятия, для которых мы проектировали, изготавливали
+                и монтировали конструкции. Наведите на логотип с отметкой —
+                покажем конкретный объект.
+            </p>
         </div>
-    </div>
-    <div class="marquee reveal" id="marquee">
-        <div class="marquee-track" id="marqueeTrack">
-            <!-- логотипы дублируются скриптом для бесшовной ленты -->
-            <div class="partner"><img src="images/partners/brestoblgas.jpg" alt="Брестоблгаз"></div>
-            <div class="partner"><img src="images/partners/beltelekom.jpg" alt="Белтелеком"></div>
-            <div class="partner"><img src="images/partners/beresteyskiy-pekar.jpg" alt="Берестейский пекарь"></div>
-            <div class="partner"><img src="images/partners/brestskiy-mk.jpg" alt="Брестский мясокомбинат"></div>
-            <div class="partner"><img src="images/partners/bzhs.jpg" alt="БЖС"></div>
-            <div class="partner"><img src="images/partners/demarsh.jpg" alt="Демарш"></div>
-            <div class="partner"><img src="images/partners/dep.jpg" alt="ДЭП"></div>
-            <div class="partner"><img src="images/partners/ekzon.jpg" alt="Экзон"></div>
-            <div class="partner"><img src="images/partners/inkofud.jpg" alt="Инкофуд"></div>
-            <div class="partner"><img src="images/partners/kobrinskie-syry.jpg" alt="Кобринские сыры"></div>
-            <div class="partner"><img src="images/partners/korona.jpg" alt="Корона"></div>
-            <div class="partner"><img src="images/partners/lode.jpg" alt="Лодэ"></div>
-            <div class="partner"><img src="images/partners/primatrans.jpg" alt="Приматранс"></div>
-            <div class="partner"><img src="images/partners/pzhs.jpg" alt="ПЖС"></div>
-            <div class="partner"><img src="images/partners/santa.jpg" alt="Санта"></div>
-            <div class="partner"><img src="images/partners/savushkin.jpg" alt="Савушкин продукт"></div>
-            <div class="partner"><img src="images/partners/vestavto.jpg" alt="Веставто"></div>
-            <div class="partner"><img src="images/partners/vodokanal.jpg" alt="Водоканал"></div>
+
+        <div class="trust-facts reveal">
+            <span><b>12 лет</b> на рынке</span>
+            <span><b>19 предприятий</b> в числе заказчиков</span>
+            <span><b>6 аттестатов</b> и сертификатов</span>
+            <span><a href="Отзывы.html"><b>4 отзыва</b> заказчиков — письма с печатью</a></span>
+        </div>
+
+        <div class="clients reveal" id="clients">
+
+            <!-- 1 · объект есть -->
+            <a class="pc pc--case" href="Портфолио.html?client=ekzon">
+                <div class="pc__pop">
+                    <div class="pc__photo">
+                        <img src="images/news3.jpg" alt="Стеллажи из нержавеющей стали для ОАО «Экзон»" loading="lazy">
+                    </div>
+                    <div class="pc__plate"><img src="images/partners/trim/ekzon.png" alt="Экзон"></div>
+                    <div class="pc__name"><span>ОАО «Экзон»</span><span class="ev">объект</span></div>
+                    <div class="pc__info">
+                        <div class="k">Нержавеющая сталь · 2026</div>
+                        <h3>Стеллажи для сушки, сталь AISI&nbsp;304</h3>
+                        <p>7 комплектов, бесшовная сварка, нагрузка до 2000&nbsp;кг, гарантия 24 месяца.</p>
+                        <span class="go">Смотреть объект <span class="arr">→</span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 2 -->
+            <div class="pc pc--plain">
+                <div class="pc__pop">
+                    <div class="pc__plate"><img src="images/partners/trim/savushkin.png" alt="Савушкин продукт" loading="lazy"></div>
+                    <div class="pc__name"><span>ОАО «Савушкин продукт»</span></div>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="pc pc--plain">
+                <div class="pc__pop">
+                    <div class="pc__plate"><img src="images/partners/trim/beltelekom.png" alt="Белтелеком" loading="lazy"></div>
+                    <div class="pc__name"><span>РУП «Белтелеком»</span></div>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="pc pc--plain" style="--lh:56px">
+                <div class="pc__pop">
+                    <div class="pc__plate"><img src="images/partners/trim/brestoblgas.png" alt="Брестоблгаз" loading="lazy"></div>
+                    <div class="pc__name"><span>УП «Брестоблгаз»</span></div>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="pc pc--plain" style="--lh:60px">
+                <div class="pc__pop">
+                    <div class="pc__plate"><img src="images/partners/trim/lode.png" alt="Лодэ" loading="lazy"></div>
+                    <div class="pc__name"><span>«Лодэ»</span></div>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="pc pc--plain">
+                <div class="pc__pop">
+                    <div class="pc__plate"><img src="images/partners/trim/santa.png" alt="Санта" loading="lazy"></div>
+                    <div class="pc__name"><span>«Санта»</span></div>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="pc pc--plain" style="--lh:58px">
+                <div class="pc__pop">
+                    <div class="pc__plate"><img src="images/partners/trim/korona.png" alt="Корона" loading="lazy"></div>
+                    <div class="pc__name"><span>«Корона»</span></div>
+                </div>
+            </div>
+
+            <!-- 8 · объект есть -->
+            <a class="pc pc--case" href="Портфолио.html?client=kondor">
+                <div class="pc__pop">
+                    <div class="pc__photo">
+                        <img src="images/news1.jpg" alt="Остановочный павильон в Бресте для ИООО «Кондор»" loading="lazy">
+                    </div>
+                    <div class="pc__plate"><img src="images/partners/trim/kondor.png" alt="Condor" loading="lazy"></div>
+                    <div class="pc__name"><span>ИООО «Кондор»</span><span class="ev">объект</span></div>
+                    <div class="pc__info">
+                        <div class="k">Готовые решения · Брест, 2026</div>
+                        <h3>Остановочный павильон в СЭЗ «Брест»</h3>
+                        <p>Проект, производство и монтаж: металлокаркас, закалённое стекло, брендирование в цветах заказчика.</p>
+                        <span class="go">Смотреть объект <span class="arr">→</span></span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="clients-more reveal">
+            <p>
+                Ещё среди заказчиков: <b>Берестейский пекарь</b>, <b>Брестский мясокомбинат</b>,
+                <b>БЖС</b>, <b>Веставто</b>, <b>Водоканал</b>, <b>Демарш</b>, <b>ДЭП</b>,
+                <b>Инкофуд</b>, <b>Кобринские сыры</b>, <b>Приматранс</b>, <b>ПЖС</b>.
+            </p>
+            <a href="Портфолио.html">Все работы в портфолио →</a>
         </div>
     </div>
 </section>
@@ -1057,12 +1287,6 @@
 <script>
 (function(){
     'use strict';
-
-    /* ---------- бесшовная лента партнёров ---------- */
-    var track = document.getElementById('marqueeTrack');
-    if (track){
-        track.innerHTML += track.innerHTML; /* дублируем набор логотипов для бесконечного цикла */
-    }
 
     /* ---------- звук видео ---------- */
     var video = document.getElementById('promoVideo');
